@@ -16,8 +16,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>pixlib</id>
+            <url>https://github.com/PinozenTH/PiXLib</url>
+        </repository>
+    </distributionManagement>
+
     <build>
-        <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
