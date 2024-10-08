@@ -1,0 +1,28 @@
+name: PiXLib
+version: '0.1'
+main: com.pinont.piXLib.PiXPlugin
+api-version: '1.20'
+prefix: PiXLib
+load: STARTUP
+authors: [ 'Pinont_' ]
+description: Pinont's Library for Spigot Plugins
+website: dev.pinont.com
+softdepend:
+  - PlugManX
+  - PlaceholderAPI
+  - MythicMobs
+
+permissions:
+  pipermission.admin:
+        description: PiXLib admin permission
+        default: op
+        parent: [pipermission.user, pipermission.bypass, pipermission.notify]
+  pipermission.user:
+        description: PiXLib user permission
+        default: true
+  pipermission.bypass:
+        description: PiXLib bypass permission
+  pipermission.notify:
+        description: PiXLib notify permission
+  pipermission.debug:
+        description: PiXLib debug permission
