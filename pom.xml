@@ -18,8 +18,9 @@
 
     <distributionManagement>
         <repository>
-            <id>pixlib</id>
-            <url>https://github.com/PinozenTH/PiXLib</url>
+            <id>github</id>
+            <name>GitHub PinozenTH Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/PinozenTH/PiXLib</url>
         </repository>
     </distributionManagement>
 
