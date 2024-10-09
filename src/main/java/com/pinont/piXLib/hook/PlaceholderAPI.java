@@ -1,4 +1,4 @@
-package com.pinont.piXLib.hooks;
+package com.pinont.piXLib.hook;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.plugin.Plugin;
