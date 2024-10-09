@@ -4,7 +4,6 @@ import com.pinont.piXLib.PiXPlugin;
 import com.pinont.piXLib.api.utils.enums.DebugType;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MessageType;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,7 +15,7 @@ public class Message extends PiXPlugin {
 
     private static final boolean bypass_perm = getPlugin().getConfig().getBoolean("debug.bypass-permission");
     public Logger log = getPlugin().getLogger();
-    private String message;
+    private final String message;
     private String permission = null;
     private LoggerType loggerType = null;
     private MessageType messageType = null;
@@ -69,8 +68,7 @@ public class Message extends PiXPlugin {
             return;
         }
         if (permission != null) {
-            p.sendMessage(message);
-            if (permission != "pixLib.denied") {
+            if (!permission.equals("pixLib.denied")) {
                 p.sendMessage(message);
             }
         } else {
@@ -83,11 +81,6 @@ public class Message extends PiXPlugin {
             new Message(message).setPlayer((Player) sender).send();
         else
             new Message("You don't have permission to use this command!");
-    }
-
-    public Message colorize() {
-        this.message = ChatColor.translateAlternateColorCodes('&', message);
-        return this;
     }
 
     public Message setMessageType(MessageType messageType) {
