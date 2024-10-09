@@ -56,6 +56,7 @@ public class Message extends PiXPlugin {
                     }
                 }
             }
+            return;
         }
         if (loggerType != null) {
             if (loggerType.equals(LoggerType.INFO)) {

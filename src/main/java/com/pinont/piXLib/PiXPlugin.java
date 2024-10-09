@@ -35,7 +35,7 @@ public class PiXPlugin {
     public static void registerEvents(List<Listener> listener, JavaPlugin plugin) {
         for (Listener l : listener) {
             plugin.getServer().getPluginManager().registerEvents(l, plugin);
-            if (ignoreList.get(l)) {
+            if (!ignoreList.isEmpty() && ignoreList.get(l)) {
                 continue;
             }
             new Message("Registered listener: " + l.getClass().getSimpleName()).setMessageType(MessageType.CONSOLE).send();
