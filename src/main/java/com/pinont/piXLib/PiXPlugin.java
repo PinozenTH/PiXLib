@@ -1,13 +1,11 @@
 package com.pinont.piXLib;
 
-import com.pinont.piXLib.tasks.Board;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MessageType;
 import com.pinont.piXLib.api.utils.texts.Message;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,9 +14,6 @@ import java.util.List;
 public class PiXPlugin {
 
     private static JavaPlugin plugin;
-
-    public static BukkitTask scoreboardTask;
-
     public static List<Listener> listeners = new ArrayList<>();
     public static HashMap<Listener, Boolean> ignoreList = new HashMap<>();
 
@@ -29,8 +24,7 @@ public class PiXPlugin {
     public static void setPlugin(final JavaPlugin plugin) {
         PiXPlugin.plugin = plugin;
         listeners.addAll(List.of());
-        ignoreList.putAll(new HashMap<Listener, Boolean>() {});
-        scoreboardTask = plugin.getServer().getScheduler().runTaskTimer(plugin, new Board().getInstance(), 0, 1);
+        ignoreList.putAll(new HashMap<>() {});
 
         registerEvents(listeners, plugin);
         new Message(plugin.getName() + "is Enabled!").setLoggerType(LoggerType.INFO).send();
