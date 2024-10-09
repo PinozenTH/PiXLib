@@ -22,7 +22,7 @@ public class Main extends JavaPlugin {
 }
 ```
 
-**To register an event listener:** [auto registers is working in progress]
+**To register an event listener:** [WIP: auto register]
 ```java
 import com.pinont.piXLib.PiXPlugin;
 
