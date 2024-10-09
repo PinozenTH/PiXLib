@@ -6,7 +6,7 @@
 
     <groupId>com.pinont</groupId>
     <artifactId>pixlib</artifactId>
-    <version>0.3-snapshot</version>
+    <version>0.31-snapshot</version>
     <packaging>jar</packaging>
 
     <name>pixlib</name>

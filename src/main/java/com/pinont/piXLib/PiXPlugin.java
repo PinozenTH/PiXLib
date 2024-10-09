@@ -23,9 +23,6 @@ public class PiXPlugin {
 
     public static void setPlugin(final JavaPlugin plugin) {
         PiXPlugin.plugin = plugin;
-        listeners.addAll(List.of());
-        ignoreList.putAll(new HashMap<>() {});
-
         registerEvents(listeners, plugin);
         new Message(plugin.getName() + "is Enabled!").setLoggerType(LoggerType.INFO).send();
     }

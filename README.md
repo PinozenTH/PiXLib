@@ -29,14 +29,14 @@ import com.pinont.piXLib.PiXPlugin;
 public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
-        // create plugin instance by
-        PiXPlugin.setPlugin(this);
-        
         // register event listener by
         PiXPlugin.listeners.addAll(
             new EventListener(),
             new AnotherEventListener()
         );
+
+        // initialize plugin instance by
+        PiXPlugin.setPlugin(this);
     }
     
     @Override
