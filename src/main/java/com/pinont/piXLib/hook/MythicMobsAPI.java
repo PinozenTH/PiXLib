@@ -1,15 +1,14 @@
-package com.pinont.piXLib.apis;
+package com.pinont.piXLib.hook;
 
 import com.pinont.piXLib.PiXPlugin;
-import com.pinont.piXLib.utils.texts.Message;
 import com.pinont.piXLib.utils.enums.LoggerType;
+import com.pinont.piXLib.utils.texts.Message;
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.BukkitAdapter;
 import io.lumine.mythic.bukkit.MythicBukkit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class MythicMobsAPI {
 
@@ -38,9 +37,9 @@ public class MythicMobsAPI {
 
     private static void isPresent(String entityName) {
         if (MythicBukkit.inst().getMobManager().getMythicMob(entityName).isPresent()) {
-            new Message(LoggerType.INFO, Lang.REGISTERED_MYTHIC_MOB + entityName);
+            new Message(Lang.REGISTERED_MYTHIC_MOB + entityName).setLoggerType(LoggerType.INFO).send();
         } else {
-            new Message(LoggerType.WARNING, entityName + Lang.NOT_VALID_MYTHIC_MOB);
+            new Message(entityName + Lang.NOT_VALID_MYTHIC_MOB).setLoggerType(LoggerType.WARNING).send();
         }
     }
 

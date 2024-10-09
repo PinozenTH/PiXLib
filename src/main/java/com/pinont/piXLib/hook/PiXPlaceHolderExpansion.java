@@ -1,9 +1,7 @@
-package com.pinont.piXLib.apis;
+package com.pinont.piXLib.hook;
 
-import com.pinont.piXLib.utils.enums.LoggerType;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class PiXPlaceHolderExpansion extends PlaceholderExpansion {

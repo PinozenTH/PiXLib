@@ -2,6 +2,7 @@ package com.pinont.piXLib.databases;
 
 import com.pinont.piXLib.PiXPlugin;
 import com.pinont.piXLib.utils.enums.LoggerType;
+import com.pinont.piXLib.utils.enums.MessageType;
 import com.pinont.piXLib.utils.enums.SQLTYPES;
 import com.pinont.piXLib.utils.texts.Message;
 import org.bukkit.Bukkit;
@@ -45,7 +46,7 @@ public class Databases {
                                 Bukkit.getScheduler().runTaskLaterAsynchronously(main, this, delay / 50L);
                             }
                         } else {
-                            new Message(LoggerType.SEVERE, "Failed to create SQLite connection after 3 attempts.");
+                            new Message("Failed to create SQLite connection after 3 attempts.").setLoggerType(LoggerType.SEVERE).send();
                         }
                     }
                 }, 0L, delay);
@@ -69,7 +70,7 @@ public class Databases {
                                 Bukkit.getScheduler().runTaskLaterAsynchronously(main, this, delay / 50L);
                             }
                         } else {
-                            new Message(LoggerType.SEVERE, "Failed to create MySQL connection after 3 attempts.");
+                            new Message("Failed to create MySQL connection after 3 attempts.").setMessageType(MessageType.CONSOLE).send();
                         }
                     }
                 }, 0L, delay);

@@ -1,5 +1,6 @@
 package com.pinont.piXLib;
 
+import com.pinont.piXLib.utils.enums.LoggerType;
 import com.pinont.piXLib.utils.enums.MessageType;
 import com.pinont.piXLib.utils.texts.Message;
 import org.bukkit.event.Listener;
@@ -29,15 +30,15 @@ public class PiXPlugin {
     public static void setPlugin(final JavaPlugin plugin) {
         PiXPlugin.plugin = plugin;
         registerEvents(listeners, plugin);
-        new Message(MessageType.CONSOLE, "Plugin enabled.");
+        new Message(plugin.getName() + "is Enabled!").setLoggerType(LoggerType.INFO).send();
     }
 
     public static void registerEvents(List<Listener> listener, JavaPlugin plugin) {
         for (Listener l : listener) {
             plugin.getServer().getPluginManager().registerEvents(l, plugin);
-            new Message(MessageType.CONSOLE, "Registered listener: " + l.getClass().getSimpleName());
+            new Message("Registered listener: " + l.getClass().getSimpleName()).setMessageType(MessageType.CONSOLE).send();
         }
-        new Message(MessageType.CONSOLE, "All listeners registered.");
+        new Message("All listeners registered.").setMessageType(MessageType.CONSOLE).send();
     }
 }
 

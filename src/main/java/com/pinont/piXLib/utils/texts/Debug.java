@@ -1,10 +1,9 @@
 package com.pinont.piXLib.utils.texts;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.utils.enums.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
@@ -16,15 +15,20 @@ public class Debug {
     private final boolean debug = plugin.getConfig().getBoolean("debug.enabled");
     private final boolean bypass_perm = plugin.getConfig().getBoolean("debug.bypass-permission");
     private static final String prefix = "Debug: ";
+    private DebugType type;
+    private final String message;
     public Logger log = Bukkit.getLogger();
 
     public Debug(String message) {
-        if (debug) {
-            log.info(message);
-        }
+        this.message = message;
     }
 
-    public Debug(String message, DebugType type) {
+    public Debug setDebugType(DebugType type) {
+        this.type = type;
+        return this;
+    }
+
+    public void send() {
         if (debug && DebugType.INFO.equals(type)) {
             log.info(prefix + message);
         } else if (debug && DebugType.WARNING.equals(type)) {
@@ -39,16 +43,8 @@ public class Debug {
                 }
             }
         } else if (debug && DebugType.BOTH.equals(type)) {
-            new Debug(message, DebugType.INFO);
-            new Debug(message, DebugType.PLAYER);
+            new Debug(message).setDebugType(DebugType.INFO).send();
+            new Debug(message).setDebugType(DebugType.PLAYER).send();
         }
-    }
-
-    public enum DebugType {
-        INFO,
-        WARNING,
-        SEVERE,
-        PLAYER,
-        BOTH
     }
 }
