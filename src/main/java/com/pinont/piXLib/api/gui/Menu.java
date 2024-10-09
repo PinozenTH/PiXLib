@@ -1,11 +1,10 @@
-package com.pinont.piXLib.gui;
+package com.pinont.piXLib.api.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.pinont.piXLib.PiXPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

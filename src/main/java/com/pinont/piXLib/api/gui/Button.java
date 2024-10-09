@@ -1,4 +1,4 @@
-package com.pinont.piXLib.gui;
+package com.pinont.piXLib.api.gui;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,6 +1,5 @@
-package com.pinont.piXLib.gui;
+package com.pinont.piXLib.api.gui;
 
-import com.pinont.piXLib.PiXPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,4 +1,4 @@
-package com.pinont.piXLib.gui;
+package com.pinont.piXLib.api.gui;
 
 
 public class ExampleMenu extends Menu {
