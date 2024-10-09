@@ -1,10 +1,10 @@
 package com.pinont.piXLib.databases;
 
 import com.pinont.piXLib.PiXPlugin;
-import com.pinont.piXLib.utils.enums.LoggerType;
-import com.pinont.piXLib.utils.enums.MessageType;
-import com.pinont.piXLib.utils.enums.SQLTYPES;
-import com.pinont.piXLib.utils.texts.Message;
+import com.pinont.piXLib.api.utils.enums.LoggerType;
+import com.pinont.piXLib.api.utils.enums.MessageType;
+import com.pinont.piXLib.api.utils.enums.SQLTYPES;
+import com.pinont.piXLib.api.utils.texts.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationOptions;
 import org.bukkit.plugin.Plugin;

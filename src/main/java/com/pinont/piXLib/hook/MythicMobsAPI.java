@@ -1,8 +1,8 @@
 package com.pinont.piXLib.hook;
 
 import com.pinont.piXLib.PiXPlugin;
-import com.pinont.piXLib.utils.enums.LoggerType;
-import com.pinont.piXLib.utils.texts.Message;
+import com.pinont.piXLib.api.utils.enums.LoggerType;
+import com.pinont.piXLib.api.utils.texts.Message;
 import io.lumine.mythic.api.mobs.MythicMob;
 import io.lumine.mythic.bukkit.BukkitAdapter;
 import io.lumine.mythic.bukkit.MythicBukkit;

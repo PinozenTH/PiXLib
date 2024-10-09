@@ -1,4 +1,4 @@
-package com.pinont.piXLib.utils.Commands;
+package com.pinont.piXLib.api.utils.Commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

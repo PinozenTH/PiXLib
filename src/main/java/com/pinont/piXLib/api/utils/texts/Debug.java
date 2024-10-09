@@ -1,6 +1,6 @@
-package com.pinont.piXLib.utils.texts;
+package com.pinont.piXLib.api.utils.texts;
 
-import com.pinont.piXLib.utils.enums.DebugType;
+import com.pinont.piXLib.api.utils.enums.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;

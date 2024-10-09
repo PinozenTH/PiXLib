@@ -1,4 +1,4 @@
-package com.pinont.piXLib.utils.enums;
+package com.pinont.piXLib.api.utils.enums;
 
 public enum APIs {
     MYTHICMOB,

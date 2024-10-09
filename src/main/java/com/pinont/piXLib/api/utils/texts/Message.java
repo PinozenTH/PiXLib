@@ -1,9 +1,9 @@
-package com.pinont.piXLib.utils.texts;
+package com.pinont.piXLib.api.utils.texts;
 
 import com.pinont.piXLib.PiXPlugin;
-import com.pinont.piXLib.utils.enums.DebugType;
-import com.pinont.piXLib.utils.enums.LoggerType;
-import com.pinont.piXLib.utils.enums.MessageType;
+import com.pinont.piXLib.api.utils.enums.DebugType;
+import com.pinont.piXLib.api.utils.enums.LoggerType;
+import com.pinont.piXLib.api.utils.enums.MessageType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package com.pinont.piXLib.utils.selections;
+package com.pinont.piXLib.api.tiles;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,12 +10,12 @@ import java.util.List;
 
 public class Cuboid {
     private final World world;
-    private int minX;
-    private int maxX;
-    private int minY;
-    private int maxY;
-    private int minZ;
-    private int maxZ;
+    private final int minX;
+    private final int maxX;
+    private final int minY;
+    private final int maxY;
+    private final int minZ;
+    private final int maxZ;
 
     public Cuboid(Location loc1, Location loc2) {
         this(loc1.getWorld(), loc1.getBlockX(), loc1.getBlockY(), loc1.getBlockZ(), loc2.getBlockX(), loc2.getBlockY(), loc2.getBlockZ());
@@ -103,6 +103,18 @@ public class Cuboid {
                 z >= minZ && z <= maxZ;
     }
 
+    public boolean contains(Material block) {
+        return block.equals(new Location(world, minX, minY, minZ).getBlock().getType());
+    }
+
+    public boolean contains(Block block) {
+        return block.getLocation().equals(new Location(world, minX, minY, minZ));
+    }
+
+    public boolean contains(Sphere sphere) {
+        return sphere.contains(this);
+    }
+
     public boolean overlaps(Cuboid cuboid) {
         return cuboid.getWorld().equals(world) &&
                 !(cuboid.getMinX() > maxX || cuboid.getMinY() > maxY || cuboid.getMinZ() > maxZ ||
@@ -114,10 +126,9 @@ public class Cuboid {
         if (this == obj) {
             return true;
         }
-        if (obj == null || !(obj instanceof Cuboid)) {
+        if (!(obj instanceof Cuboid other)) {
             return false;
         }
-        final Cuboid other = (Cuboid) obj;
         return world.equals(other.world)
                 && minX == other.minX
                 && minY == other.minY
