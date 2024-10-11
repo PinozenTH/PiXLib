@@ -6,7 +6,7 @@
 
     <groupId>com.pinont</groupId>
     <artifactId>pixlib</artifactId>
-    <version>1.01-snapshot</version>
+    <version>1.0-snapshot</version>
     <packaging>jar</packaging>
 
     <name>pixlib</name>
@@ -83,7 +83,6 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-text-minimessage</artifactId>
             <version>4.17.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.lumine</groupId>
@@ -96,6 +95,11 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.12</version>
         </dependency>
     </dependencies>
 </project>

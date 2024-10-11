@@ -1,6 +1,6 @@
 package com.pinont.piXLib.hook;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.PiXLib;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.texts.Message;
 import io.lumine.mythic.api.mobs.MythicMob;
@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 
 public class MythicMobsAPI {
 
-    private static final Plugin main = PiXPlugin.getPlugin();
+    private static final Plugin main = PiXLib.getPlugin();
 
     static class Lang {
         static final String HOOKED_TO_MYTHIC_MOBS = "Hooked to MythicMobs!";

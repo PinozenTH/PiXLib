@@ -1,6 +1,6 @@
 package com.pinont.piXLib.api.scoreboard;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.PiXLib;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.*;
@@ -25,7 +25,7 @@ public class Board {
         this.name = name;
         this.criteria = criteria;
         this.DisplayName = DisplayName;
-        Plugin main = PiXPlugin.getPlugin();
+        Plugin main = PiXLib.getPlugin();
         this.scoreboard = Objects.requireNonNull(main.getServer().getScoreboardManager()).getMainScoreboard();
         objective = scoreboard.registerNewObjective(name, criteria, DisplayName);
         Team boardTeam = scoreboard.registerNewTeam(name);
@@ -36,7 +36,7 @@ public class Board {
     }
 
     public Board(@Nonnull String name) {
-        this.scoreboard = Objects.requireNonNull(PiXPlugin.getPlugin().getServer().getScoreboardManager()).getMainScoreboard().getObjective(name).getScoreboard();
+        this.scoreboard = Objects.requireNonNull(PiXLib.getPlugin().getServer().getScoreboardManager()).getMainScoreboard().getObjective(name).getScoreboard();
         this.name = name;
         this.criteria = Criteria.create(scoreboard.getObjective(name).getCriteria());
         this.DisplayName = scoreboard.getObjective(name).getDisplayName();

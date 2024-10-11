@@ -1,6 +1,6 @@
 package com.pinont.piXLib.configurations;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.PiXLib;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.Plugin;
 
@@ -11,7 +11,7 @@ public enum Config {
 
     public final String path;
     public final String def;
-    public Plugin plugin = PiXPlugin.getPlugin();
+    public Plugin plugin = PiXLib.getPlugin();
 
     Config(String path, String def) {
         this.path = path;

@@ -1,20 +1,22 @@
-package com.pinont.piXLib.commands;
+package com.pinont.piXLib.SuperClass;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
-import java.util.Objects;
 
-public abstract class PiXCommandHandler implements CommandExecutor, TabCompleter {
+public abstract class PiXCommand implements CommandExecutor, TabCompleter {
+
+    public final String name;
 
 
-    public void register(String name, Plugin plugin) {
-        Objects.requireNonNull(Bukkit.getPluginCommand(name)).setExecutor(plugin);
-        Objects.requireNonNull(Bukkit.getPluginCommand(name)).setTabCompleter(plugin);
+    public PiXCommand(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.pinont.piXLib.databases;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.PiXLib;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MessageType;
 import com.pinont.piXLib.api.utils.enums.SQLTYPES;
@@ -15,14 +15,14 @@ import java.util.List;
 public class Databases {
 
 
-    private final ConfigurationOptions configOption = PiXPlugin.getPlugin().getConfig().options();
+    private final ConfigurationOptions configOption = PiXLib.getPlugin().getConfig().options();
     private int attempts = configOption.configuration().getInt("database.attempts");
     private long delay = configOption.configuration().getInt("database.delay");
     private final long maxDelay = configOption.configuration().getInt("database.max-delay");
     private final double multiplier = configOption.configuration().getInt("database.multiplier");
     private final long jitter = configOption.configuration().getInt("database.jitter");
 
-    private final Plugin main = PiXPlugin.getPlugin();
+    private final Plugin main = PiXLib.getPlugin();
 
     public List<BukkitTask> tasks;
 

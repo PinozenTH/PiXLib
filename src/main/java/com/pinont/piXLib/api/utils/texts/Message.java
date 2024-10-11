@@ -1,9 +1,11 @@
 package com.pinont.piXLib.api.utils.texts;
 
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.piXLib.PiXLib;
 import com.pinont.piXLib.api.utils.enums.DebugType;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MessageType;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -11,7 +13,7 @@ import java.util.logging.Logger;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class Message extends PiXPlugin {
+public class Message extends PiXLib {
 
     private static final boolean bypass_perm = getPlugin().getConfig().getBoolean("debug.bypass-permission");
     public Logger log = getPlugin().getLogger();
@@ -24,7 +26,6 @@ public class Message extends PiXPlugin {
     public Message(String message) {
         this.message = message;
     }
-
 
     public void send() {
         if (messageType != null) {
@@ -68,6 +69,7 @@ public class Message extends PiXPlugin {
             }
             return;
         }
+        if (p == null) return;
         if (permission != null) {
             if (!permission.equals("pixLib.denied")) {
                 p.sendMessage(message);
@@ -82,6 +84,19 @@ public class Message extends PiXPlugin {
             new Message(message).setPlayer((Player) sender).send();
         else
             new Message("You don't have permission to use this command!");
+    }
+
+    public String getMessage() {
+        send();
+        return message;
+    }
+
+    public Component toComponent() {
+        return Component.text(message);
+    }
+
+    public TextComponent toTextComponent() {
+        return Component.text(message);
     }
 
     public Message setMessageType(MessageType messageType) {

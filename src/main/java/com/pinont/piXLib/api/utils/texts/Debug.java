@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
 
-import static com.pinont.piXLib.PiXPlugin.getPlugin;
+import static com.pinont.piXLib.PiXLib.getPlugin;
 
 public class Debug {
 
