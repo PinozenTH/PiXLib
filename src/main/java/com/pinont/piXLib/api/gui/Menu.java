@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.pinont.piXLib.api.utils.enums.LoggerType;
+import com.pinont.piXLib.api.utils.enums.MenuSize;
+import com.pinont.piXLib.api.utils.texts.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -45,6 +48,8 @@ public class Menu {
 		this.size = size;
 	}
 
+	protected final void setSize(MenuSize size) { this.size = size.getSize(); }
+
 	protected final void setTitle(String title) {
 		this.title = title;
 	}
@@ -64,11 +69,11 @@ public class Menu {
 				public ItemStack getItem() {
 					final ItemStack item = new ItemStack(Material.OAK_DOOR);
 					final ItemMeta meta = item.getItemMeta();
-					meta.setDisplayName(ChatColor.WHITE + "Return Back");
+                    assert meta != null;
+                    meta.setDisplayName(ChatColor.WHITE + "Return Back");
 					item.setItemMeta(meta);
 
 					return item;
-					//return ItemCreator.of(CompMaterial.OAK_DOOR, "Return Back").make();
 				}
 
 				@Override
@@ -79,7 +84,7 @@ public class Menu {
 						newMenuInstance.displayTo(player, plugin);
 
 					} catch (final ReflectiveOperationException ex) {
-						ex.printStackTrace();
+						new Message(ex.getMessage()).setLoggerType(LoggerType.SEVERE).send();
 					}
 				}
 			};

@@ -9,6 +9,7 @@ import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import static org.bukkit.Bukkit.getServer;
@@ -25,6 +26,18 @@ public class Message extends PiXLib {
 
     public Message(String message) {
         this.message = message;
+    }
+
+    public Message(String... message) {
+        this.message = String.join("", message);
+    }
+
+    public void sendConsole() {
+        log.info(message);
+    }
+
+    public void broadcast() {
+        getServer().broadcastMessage(message);
     }
 
     public void send() {

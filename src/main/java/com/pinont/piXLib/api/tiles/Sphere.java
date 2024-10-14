@@ -1,11 +1,18 @@
 package com.pinont.piXLib.api.tiles;
 
+import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public record Sphere(World world, int radius, int x, int y, int z) {
 
+    private static final List<Entity> containsEntities = new ArrayList<>();
+
     public Float volume() {
-        return (float) (4 / 3 * Math.PI * Math.pow(radius, 3));
+        return (float) ((double) 4 / 3 * Math.PI * Math.pow(radius, 3));
     }
 
     public Float surfaceArea() {
@@ -22,14 +29,6 @@ public record Sphere(World world, int radius, int x, int y, int z) {
 
     public Float getArea() {
         return (float) (Math.PI * Math.pow(radius, 2));
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public int getRadius() {
-        return radius;
     }
 
     public int getMinX() {
@@ -100,5 +99,16 @@ public record Sphere(World world, int radius, int x, int y, int z) {
                 ", y=" + y +
                 ", z=" + z +
                 "]}";
+    }
+
+    public List<Entity> getContainsEntities() {
+        for (int x = getMinX(); x <= getMaxX(); x++) {
+            for (int y = getMinY(); y <= getMaxY(); y++) {
+                for (int z = getMinZ(); z <= getMinZ(); z++) {
+                    containsEntities.addAll(List.of(world.getChunkAt(new Location(world, x, y, z)).getEntities()));
+                }
+            }
+        }
+        return containsEntities;
     }
 }

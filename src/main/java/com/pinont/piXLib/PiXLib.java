@@ -19,7 +19,8 @@ public class PiXLib {
 
     public static JavaPlugin plugin;
     public static List<Listener> listeners = new ArrayList<>();
-    public static List<Listener> hiddenlist = new ArrayList<>();
+    public static List<Listener> listenerHiddenList = new ArrayList<>();
+    public static List<CommandExecutor> commandHiddenList = new ArrayList<>();
     public static HashMap<String, CommandExecutor> commands = new HashMap<>();
 
     public static Plugin getPlugin() {
@@ -30,10 +31,6 @@ public class PiXLib {
         // set plugin
         PiXLib.plugin = plugin;
 
-        // Fire the plugin start event
-        PluginStartEvent event = new PluginStartEvent(plugin);
-        Bukkit.getServer().getPluginManager().callEvent(event);
-
         // register events and commands
         registerEvents();
         registerCommands();
@@ -41,7 +38,11 @@ public class PiXLib {
         // clean up after unused
         listeners.clear();
         commands.clear();
-        hiddenlist.clear();
+        listenerHiddenList.clear();
+
+        // Fire the plugin started event
+        PluginStartEvent event = new PluginStartEvent(plugin);
+        Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
     public static void unregister() {
@@ -54,7 +55,7 @@ public class PiXLib {
         if (listeners.isEmpty()) return;
         for (Listener l : listeners) {
             plugin.getServer().getPluginManager().registerEvents(l, plugin);
-            if (hiddenlist.contains(l)) {
+            if (listenerHiddenList.contains(l)) {
                 continue;
             }
             new Message("Registered listener: " + l.getClass().getSimpleName()).setMessageType(MessageType.CONSOLE).send();
@@ -66,7 +67,7 @@ public class PiXLib {
         if (commands.isEmpty()) return;
         for (String command : commands.keySet()) {
             Objects.requireNonNull(plugin.getCommand(command)).setExecutor(commands.get(command));
-            if (hiddenlist.contains(commands.get(command))) {
+            if (commandHiddenList.contains(commands.get(command))) {
                 continue;
             }
             new Message("Registered command: " + command).setMessageType(MessageType.CONSOLE).send();
