@@ -1,4 +1,4 @@
-package com.pinont.piXLib.api.gui;
+package com.pinont.piXLib.api.menus;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,8 +18,7 @@ public class MenuListener implements Listener {
 		System.out.println("Clicking in menu! Has metadata ? " + dude.hasMetadata("PiXLibMenu"));
 
 		if (dude.hasMetadata("PiXLibMenu")) {
-			final Menu menu = (Menu) dude.getMetadata("PiXLibMenu").get(0).value();
-
+			final Menu menu = (Menu) dude.getMetadata("PiXLibMenu").getFirst().value();
 
 			System.out.println("Clicked " + slot + " in menu " + menu);
 

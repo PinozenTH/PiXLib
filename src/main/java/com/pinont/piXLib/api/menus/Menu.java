@@ -1,9 +1,4 @@
-package com.pinont.piXLib.api.gui;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
+package com.pinont.piXLib.api.menus;
 
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MenuSize;
@@ -17,6 +12,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu {
 

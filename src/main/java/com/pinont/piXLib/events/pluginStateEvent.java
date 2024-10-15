@@ -8,7 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
-import static com.pinont.piXLib.PiXLib.*;
+import static com.pinont.piXLib.PiXLib.listenerHiddenList;
+import static com.pinont.piXLib.PiXLib.listeners;
 
 public class pluginStateEvent implements Listener {
 
