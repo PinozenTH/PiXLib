@@ -12,7 +12,7 @@ public class Config {
 
     private final Map<String, Boolean> debug = Map.of("debug.enabled", false,
             "debug.bypass_perm", false);
-    private final File file = new File(PiXLib.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
+    private final File file = new File(PiXLib.getPlugin().getDataFolder().getAbsolutePath() + "/config.yml");
     private final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
     private Map<String, String> stringConfig;
     private Map<String, Boolean> booleanConfig;
@@ -20,7 +20,7 @@ public class Config {
     private Map<String, Double> doubleConfig;
     private Map<String, Float> floatConfig;
 
-    static void create(File file, YamlConfiguration yaml) {
+    static void create() {
         if (!file.exists()) {
             try {
                 file.createNewFile();
