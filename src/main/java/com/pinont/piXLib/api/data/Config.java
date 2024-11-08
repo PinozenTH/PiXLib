@@ -12,25 +12,25 @@ public class Config {
 
     private final Map<String, Boolean> debug = Map.of("debug.enabled", false,
             "debug.bypass_perm", false);
-    private final File file = new File(PiXLib.getPlugin().getDataFolder().getAbsolutePath() + "/config.yml");
-    private final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+    private static final File file = new File(PiXLib.getPlugin().getDataFolder().getAbsolutePath() + "/config.yml");
+    private static final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
     private Map<String, String> stringConfig;
     private Map<String, Boolean> booleanConfig;
     private Map<String, Integer> intConfig;
     private Map<String, Double> doubleConfig;
     private Map<String, Float> floatConfig;
 
-    static void create() {
+    static void saveFile() {
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                yaml.save(file);
+                yaml.save(Config.file);
             } catch (Exception e) {
                 new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
             }
         } else {
             try {
-                yaml.save(file);
+                yaml.save(Config.file);
             } catch (Exception e) {
                 new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
             }
@@ -70,7 +70,7 @@ public class Config {
         setConfig(doubleConfig);
         setConfig(floatConfig);
         yaml.set("version", PiXLib.getPluginConfigVersion());
-        create(file, yaml);
+        saveFile();
     }
 
     private void setConfig(Map<String, ?> map) {

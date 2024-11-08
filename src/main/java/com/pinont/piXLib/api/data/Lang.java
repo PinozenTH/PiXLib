@@ -1,6 +1,8 @@
 package com.pinont.piXLib.api.data;
 
 import com.pinont.piXLib.PiXLib;
+import com.pinont.piXLib.api.utils.enums.LoggerType;
+import com.pinont.piXLib.api.utils.texts.Message;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -15,7 +17,9 @@ public class Lang {
     }
 
     public static String get(String key) {
-        return "a";
+        File file = new File(PiXLib.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        return yaml.getString(key);
     }
 
     public void create() {
@@ -24,7 +28,11 @@ public class Lang {
         for (var entry : lang.entrySet()) {
             yaml.set(entry.getKey(), entry.getValue());
         }
-        Config.create(file, yaml);
+        try {
+            yaml.save(file);
+        } catch (Exception e) {
+            new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+        }
     }
 
 

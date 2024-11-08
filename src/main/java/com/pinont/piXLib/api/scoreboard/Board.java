@@ -4,6 +4,7 @@ import com.pinont.piXLib.PiXLib;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.*;
+import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
@@ -120,7 +121,7 @@ public class Board {
         return DisplayName;
     }
 
-    public Scoreboard getScoreboard() {
+    public org.bukkit.scoreboard.Scoreboard getScoreboard() {
         return scoreboard;
     }
 }

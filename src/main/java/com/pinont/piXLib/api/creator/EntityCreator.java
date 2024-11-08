@@ -6,6 +6,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
+import java.util.Objects;
+
 public class EntityCreator {
 
     private final EntityType entityType;
@@ -105,8 +107,8 @@ public class EntityCreator {
         return this;
     }
 
-    public Entity spawn(World world, Location location) {
-        this.entity = world.spawnEntity(location, entityType);
+    public Entity spawn(Location location) {
+        this.entity = Objects.requireNonNull(location.getWorld()).spawnEntity(location, entityType);
         return entity;
     }
 
@@ -114,5 +116,4 @@ public class EntityCreator {
         this.entity = world.spawnEntity(new Location(world, x,y,z), entityType);
         return entity;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.pinont.piXLib;
 
-import com.pinont.piXLib.SuperClass.XCommand;
+import com.pinont.piXLib.api.commands.XCommand;
 import com.pinont.piXLib.api.events.PluginStartEvent;
 import com.pinont.piXLib.api.events.PluginStopEvent;
 import com.pinont.piXLib.api.utils.enums.MessageType;
@@ -28,6 +28,7 @@ public class PiXLib {
     @Setter
     @Getter
     public static double pluginConfigVersion = 1.0;
+    public static String apiVersion = "1.02-snapshot";
 
     public static Plugin getPlugin() {
         return plugin;
@@ -36,6 +37,10 @@ public class PiXLib {
     public static void setPlugin(final JavaPlugin plugin) {
         // set plugin
         PiXLib.plugin = plugin;
+        new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " With PiXLib Version " + apiVersion).sendConsole();
+
+        // load annotated classes
+//        load();
 
         // register events and commands
         registerEvents();
@@ -49,6 +54,7 @@ public class PiXLib {
         // Fire the plugin started event
         PluginStartEvent event = new PluginStartEvent(plugin);
         Bukkit.getServer().getPluginManager().callEvent(event);
+        registerEvents();
     }
 
     public static void unregister() {
@@ -57,7 +63,7 @@ public class PiXLib {
         Bukkit.getServer().getPluginManager().callEvent(event);
     }
 
-    private static void registerEvents() {
+    protected static void registerEvents() {
         if (listeners.isEmpty()) return;
         for (Listener l : listeners) {
             plugin.getServer().getPluginManager().registerEvents(l, plugin);
@@ -69,7 +75,7 @@ public class PiXLib {
         new Message(ChatColor.GREEN + "All listeners are registered.").setMessageType(MessageType.CONSOLE).send();
     }
 
-    private static void registerCommands() {
+    protected static void registerCommands() {
         if (!xCommandList.isEmpty()) {
             for (String command : xCommandList.keySet()) {
                 Objects.requireNonNull(plugin.getCommand(command)).setExecutor(commands.get(command));
@@ -94,6 +100,14 @@ public class PiXLib {
             new Message(ChatColor.GREEN + "All tab completes are registered.").setMessageType(MessageType.CONSOLE).send();
         }
     }
+
+//    protected static void load() {
+//        try {
+//            AnnotationScanner.loadAnnotatedClasses(plugin.getClass().getPackage().getName());
+//        } catch (Exception e) {
+//            new Message(ChatColor.RED + "Failed to load annotated classes.").setLoggerType(LoggerType.SEVERE).send();
+//        }
+//    }
 }
 
 
