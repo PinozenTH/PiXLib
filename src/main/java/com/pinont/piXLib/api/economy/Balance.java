@@ -1,82 +1,33 @@
 package com.pinont.piXLib.api.economy;
 
-import com.pinont.piXLib.api.data.SQLite;
+import com.pinont.piXLib.PiXLib;
 import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 
-import java.util.HashMap;
-import java.util.UUID;
+@Setter
+@Getter
+public class Balance {
 
-public class Balance extends Economy {
+    private Float balance;
 
-    SQLite balance = new SQLite("balance");
+    private NamespacedKey bal = new NamespacedKey(PiXLib.getPlugin(), "balance");
 
-    private String currency;
-    @Getter
-    private HashMap<UUID, Double> account = new HashMap<>();
-    private UUID uuid;
-
-    public double getDefaultBalance() {
-        return 100.0;
+    public Balance(Player player) {
+        if (!player.getPersistentDataContainer().has(bal, PersistentDataType.FLOAT)) {
+            player.getPersistentDataContainer().set(bal, PersistentDataType.FLOAT, 0.0f);
+        }
+        this.balance = player.getPersistentDataContainer().get(bal, PersistentDataType.FLOAT);
     }
 
-    @Override
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void set(Player player, float balance) {
+        player.getPersistentDataContainer().set(bal, PersistentDataType.FLOAT, balance);
     }
 
-    @Override
-    public String getCurrency() {
-        return currency;
+    public void get(Player player) {
+        player.getPersistentDataContainer().get(bal, PersistentDataType.FLOAT);
     }
 
-    @Override
-    public void setUser(UUID user) {
-        this.uuid = user;
-    }
-
-    public UUID getUser() {
-        return uuid;
-    }
-
-    @Override
-    public void setAmount(double amount) {
-        account.put(uuid, amount);
-    }
-
-    @Override
-    public Double getAmount() {
-        return account.get(uuid);
-    }
-
-    @Override
-    public void setAccount(HashMap<UUID, Double> account) {
-        balance.createTable("balance", "player TEXT", "balance DOUBLE");
-    }
-
-    @Override
-    public void saveAccount(HashMap<UUID, Double> account) {
-        balance.insert("balance", "player, balance", uuid + ", " + account.get(uuid));
-    }
-
-    public HashMap<UUID, Double> getAccount(UUID uuid) {
-        HashMap<UUID, Double> account = new HashMap<>();
-        account.put(uuid, balance.getDouble(String.valueOf(uuid), "balance"));
-        return account;
-    }
-
-    @Override
-    public double getBalance(UUID player) {
-        return account.get(player);
-    }
-
-    @Override
-    public void setBalance(double amount) {
-        account.put(uuid, amount);
-    }
-
-    @Override
-    public void addBalance(double amount) {
-        account.put(uuid, account.get(uuid) + amount);
-
-    }
 }

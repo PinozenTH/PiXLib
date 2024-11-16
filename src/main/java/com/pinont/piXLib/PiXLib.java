@@ -1,13 +1,10 @@
 package com.pinont.piXLib;
 
 import com.pinont.piXLib.api.commands.XCommand;
-import com.pinont.piXLib.api.events.PluginStartEvent;
-import com.pinont.piXLib.api.events.PluginStopEvent;
 import com.pinont.piXLib.api.utils.enums.MessageType;
 import com.pinont.piXLib.api.utils.texts.Message;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -50,17 +47,14 @@ public class PiXLib {
         listeners.clear();
         commands.clear();
         listenerHiddenList.clear();
-
-        // Fire the plugin started event
-        PluginStartEvent event = new PluginStartEvent(plugin);
-        Bukkit.getServer().getPluginManager().callEvent(event);
         registerEvents();
     }
 
     public static void unregister() {
-        // Fire the plugin stop event
-        PluginStopEvent event = new PluginStopEvent(plugin);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        listeners.clear();
+        commands.clear();
+        listenerHiddenList.clear();
+        plugin = null;
     }
 
     protected static void registerEvents() {
@@ -100,14 +94,6 @@ public class PiXLib {
             new Message(ChatColor.GREEN + "All tab completes are registered.").setMessageType(MessageType.CONSOLE).send();
         }
     }
-
-//    protected static void load() {
-//        try {
-//            AnnotationScanner.loadAnnotatedClasses(plugin.getClass().getPackage().getName());
-//        } catch (Exception e) {
-//            new Message(ChatColor.RED + "Failed to load annotated classes.").setLoggerType(LoggerType.SEVERE).send();
-//        }
-//    }
 }
 
 

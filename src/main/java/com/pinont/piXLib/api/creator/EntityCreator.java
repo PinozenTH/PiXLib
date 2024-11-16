@@ -1,119 +1,153 @@
 package com.pinont.piXLib.api.creator;
 
+import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class EntityCreator {
 
     private final EntityType entityType;
-    private Entity entity;
+    private Entity passenger;
+    private List<String> ScoreboardTag;
+    private int fireTicks;
+    private boolean glowing;
+    private boolean invulnerable;
+    private boolean silent;
+    private boolean gravity;
+    private boolean persistent;
+    private int freezeTicks;
+    private boolean customNameVisible;
+    private int portalCooldown;
+    private float fallingDistance;
+    private float[] rotation;
+    private Vector vector;
+    private boolean visualFire;
+    private boolean visibleByDefault;
+    private int ticksLived;
 
-    public EntityCreator(EntityType entityType) {
+    public EntityCreator(Location location, EntityType entityType) {
         this.entityType = entityType;
     }
 
     public EntityCreator addPassenger(Entity passenger) {
-        entity.addPassenger(passenger);
+        this.passenger = passenger;
         return this;
     }
 
-    public EntityCreator addScoreboardTag(String tag) {
-        entity.addScoreboardTag(tag);
+    public EntityCreator addScoreboardTag(String... ScoreboardTag) {
+        Collections.addAll(this.ScoreboardTag, ScoreboardTag);
         return this;
     }
 
     public EntityCreator setFireTicks(int ticks) {
-        entity.setFireTicks(ticks);
+        this.fireTicks = ticks;
         return this;
     }
 
     public EntityCreator setGlowing(boolean glowing) {
-        entity.setGlowing(glowing);
+        this.glowing = glowing;
         return this;
     }
 
     public EntityCreator setInvulnerable(boolean invulnerable) {
-        entity.setInvulnerable(invulnerable);
+        this.invulnerable = invulnerable;
         return this;
     }
 
     public EntityCreator setSilent(boolean silent) {
-        entity.setSilent(silent);
+        this.silent = silent;
         return this;
     }
 
     public EntityCreator hasGravity(boolean gravity) {
-        entity.setGravity(gravity);
-        return this;
-    }
-
-    public EntityCreator setVelocity(double x, double y, double z) {
-        entity.setVelocity(entity.getVelocity().setX(x).setY(y).setZ(z));
+        this.gravity = gravity;
         return this;
     }
 
     public EntityCreator setVelocity(Vector vector) {
-        entity.setVelocity(vector);
+        this.vector = vector;
         return this;
     }
 
     public EntityCreator setPersistent(Boolean persistent) {
-        entity.setPersistent(persistent);
+        this.persistent = persistent;
         return this;
     }
 
     public EntityCreator setFreezeTicks(int ticks) {
-        entity.setFreezeTicks(ticks);
+        this.freezeTicks = ticks;
         return this;
     }
 
     public EntityCreator setCustomNameVisible(Boolean visible) {
-        entity.setCustomNameVisible(visible);
+        this.customNameVisible = visible;
         return this;
     }
 
     public EntityCreator setPortalCooldown(int ticks) {
-        entity.setPortalCooldown(ticks);
+        this.portalCooldown = ticks;
         return this;
     }
 
     public EntityCreator setFallingDistance(float distance) {
-        entity.setFallDistance(distance);
+        this.fallingDistance = distance;
         return this;
     }
 
     public EntityCreator setRotation(float yaw, float pitch) {
-        entity.setRotation(yaw, pitch);
+        this.rotation = new float[]{yaw, pitch};
         return this;
     }
 
     public EntityCreator setTicksLived(int ticks) {
-        entity.setTicksLived(ticks);
+        this.ticksLived = ticks;
         return this;
     }
 
     public EntityCreator setVisibleByDefault(boolean visible) {
-        entity.setVisibleByDefault(visible);
+        this.visibleByDefault = visible;
         return this;
     }
 
     public EntityCreator setVisualFire(boolean fire) {
-        entity.setVisualFire(fire);
+        this.visualFire = fire;
         return this;
     }
 
     public Entity spawn(Location location) {
-        this.entity = Objects.requireNonNull(location.getWorld()).spawnEntity(location, entityType);
+        Entity entity = Objects.requireNonNull(location.getWorld()).spawnEntity(location, entityType);
+        if (passenger != null) entity.addPassenger(passenger);
+        if (ScoreboardTag != null) {
+            for (String tag : ScoreboardTag) {
+                entity.addScoreboardTag(tag);
+            }
+        }
+        if (fireTicks != 0) entity.setFireTicks(fireTicks);
+        if (glowing) entity.setGlowing(true);
+        if (invulnerable) entity.setInvulnerable(true);
+        if (silent) entity.setSilent(true);
+        if (!gravity) entity.setGravity(false);
+        if (vector != null) entity.setVelocity(vector);
+        if (persistent) entity.setPersistent(true);
+        if (freezeTicks != 0) entity.setFreezeTicks(freezeTicks);
+        if (customNameVisible) entity.setCustomNameVisible(true);
+        if (portalCooldown != 0) entity.setPortalCooldown(portalCooldown);
+        if (fallingDistance != 0) entity.setFallDistance(fallingDistance);
+        if (rotation != null) entity.setRotation(rotation[0], rotation[1]);
+        if (ticksLived != 0) entity.setTicksLived(ticksLived);
+        if (!visibleByDefault) entity.setVisibleByDefault(false);
+        if (!visualFire) entity.setVisualFire(false);
         return entity;
     }
 
     public Entity spawn(World world, double x, double y, double z) {
-        this.entity = world.spawnEntity(new Location(world, x,y,z), entityType);
-        return entity;
+        return spawn(new Location(world, x, y, z));
     }
 }
