@@ -1,5 +1,6 @@
 package com.pinont.piXLib.api.utils.texts;
 
+import com.pinont.piXLib.PiXLib;
 import com.pinont.piXLib.api.utils.enums.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -7,11 +8,9 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Logger;
 
-import static com.pinont.piXLib.PiXLib.getPlugin;
-
 public class Debug {
 
-    private final Plugin plugin = getPlugin();
+    private final Plugin plugin = PiXLib.getPlugin();
     private final boolean debug = plugin.getConfig().getBoolean("debug.enabled");
     private final boolean bypass_perm = plugin.getConfig().getBoolean("debug.bypass-permission");
     private static final String prefix = "Debug: ";

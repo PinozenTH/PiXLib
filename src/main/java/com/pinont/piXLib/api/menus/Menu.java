@@ -1,5 +1,7 @@
 package com.pinont.piXLib.api.menus;
 
+import com.pinont.piXLib.PiXLib;
+import com.pinont.piXLib.api.utils.Common;
 import com.pinont.piXLib.api.utils.enums.LoggerType;
 import com.pinont.piXLib.api.utils.enums.MenuSize;
 import com.pinont.piXLib.api.utils.texts.Message;
@@ -53,9 +55,9 @@ public class Menu {
 		this.title = title;
 	}
 
-	public final void displayTo(Player player, Plugin plugin) {
+	public final void displayTo(Player player) {
 		final Inventory inventory = Bukkit.createInventory(player, this.size,
-				ChatColor.translateAlternateColorCodes('&', this.title));
+				Common.colorize(this.title));
 
 		for (final Button button : this.buttons)
 			inventory.setItem(button.getSlot(), button.getItem());
@@ -80,7 +82,7 @@ public class Menu {
 					try {
 						final Menu newMenuInstance = parent.getClass().getConstructor().newInstance();
 
-						newMenuInstance.displayTo(player, plugin);
+						newMenuInstance.displayTo(player);
 
 					} catch (final ReflectiveOperationException ex) {
 						new Message(ex.getMessage()).setLoggerType(LoggerType.SEVERE).send();
@@ -95,9 +97,8 @@ public class Menu {
 		if (player.hasMetadata("PiXLibMenu"))
 			player.closeInventory();
 
-		player.setMetadata("PiXLibMenu", new FixedMetadataValue(plugin, this));
+		player.setMetadata("PiXLibMenu", new FixedMetadataValue(PiXLib.getPlugin(), this));
 
-		System.out.println("Opening inventory");
 		player.openInventory(inventory);
 	}
 }

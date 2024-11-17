@@ -14,10 +14,10 @@ import java.util.logging.Logger;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class Message extends PiXLib {
+public class Message {
 
-    private static final boolean bypass_perm = getPlugin().getConfig().getBoolean("debug.bypass-permission");
-    public Logger log = getPlugin().getLogger();
+    private static final boolean bypass_perm = PiXLib.getPlugin().getConfig().getBoolean("debug.bypass-permission");
+    public Logger log = PiXLib.getPlugin().getLogger();
     private final String message;
     private String permission = null;
     private LoggerType loggerType = null;

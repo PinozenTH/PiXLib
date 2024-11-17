@@ -1,9 +1,11 @@
 package com.pinont.piXLib.api.creator;
 
 import com.pinont.piXLib.PiXLib;
+import com.pinont.piXLib.api.utils.Common;
 import com.pinont.piXLib.api.utils.enums.AttributeType;
 import com.pinont.piXLib.api.utils.enums.PersisDataType;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
@@ -21,24 +23,32 @@ public class ItemCreator {
 
     private final ItemStack item;
     private ItemMeta meta;
-    private short durability;
+    private short durability = 0;
     @Getter
     private final PersistentDataContainer data;
-    private ArrayList<String> lore = new ArrayList<>();
-    private int amount;
+    private final ArrayList<String> lore = new ArrayList<>();
+    private int amount = 1;
+    private Material type;
 
     public ItemCreator(@NotNull ItemStack item) {
         this.item = item;
         this.meta = item.getItemMeta();
+        this.type = item.getType();
         data = meta != null ? meta.getPersistentDataContainer() : null;
     }
 
     public ItemStack create() {
+        item.setType(type);
         meta.setLore(lore);
         item.setItemMeta(meta);
         item.setDurability(durability);
         item.setAmount(amount);
         return item;
+    }
+
+    public ItemCreator setType(Material type) {
+        this.type = type;
+        return this;
     }
 
     public ItemCreator addChargedProjectile(ItemStack arrow) {
@@ -49,7 +59,7 @@ public class ItemCreator {
     }
 
     public ItemCreator setDisplayName(String name) {
-        meta.setDisplayName(name);
+        meta.setDisplayName(Common.colorize(name));
         return this;
     }
 

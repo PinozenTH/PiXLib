@@ -1,6 +1,0 @@
-database:
-  max-attempts: 3
-  delay: 1000
-  max-delay: 10000
-  multiplier: 2
-  jitter: 1000

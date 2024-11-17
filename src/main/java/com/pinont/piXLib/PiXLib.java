@@ -1,6 +1,7 @@
 package com.pinont.piXLib;
 
 import com.pinont.piXLib.api.commands.XCommand;
+import com.pinont.piXLib.api.menus.MenuListener;
 import com.pinont.piXLib.api.utils.enums.MessageType;
 import com.pinont.piXLib.api.utils.texts.Message;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -18,23 +20,24 @@ public class PiXLib {
 
     public static JavaPlugin plugin;
     public static List<Listener> listeners = new ArrayList<>();
-    public static List<Listener> listenerHiddenList = new ArrayList<>();
+    private static final List<Listener> listenerHiddenList = new ArrayList<>();
     public static Map<String, XCommand> xCommandList = new HashMap<>();
     public static Map<String, CommandExecutor> commands = new HashMap<>();
     public static Map<String, TabCompleter> tabComplete = new HashMap<>();
     @Setter
     @Getter
     public static double pluginConfigVersion = 1.0;
-    public static String apiVersion = "1.02-snapshot";
+    public static String apiVersion = "1.04-snapshot";
 
+    @NotNull
     public static Plugin getPlugin() {
         return plugin;
     }
 
-    public static void setPlugin(final JavaPlugin plugin) {
-        // set plugin
+    public static void setup(@NotNull JavaPlugin plugin) {
         PiXLib.plugin = plugin;
         new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " With PiXLib Version " + apiVersion).sendConsole();
+        listenerHiddenList.add(new MenuListener());
 
         // load annotated classes
 //        load();
@@ -59,6 +62,7 @@ public class PiXLib {
 
     protected static void registerEvents() {
         if (listeners.isEmpty()) return;
+        listeners.addAll(listenerHiddenList);
         for (Listener l : listeners) {
             plugin.getServer().getPluginManager().registerEvents(l, plugin);
             if (listenerHiddenList.contains(l)) {
