@@ -1,10 +1,14 @@
 package com.pinont.piXLib.api.creator;
 
-import lombok.Getter;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
+import org.bukkit.material.SpawnEgg;
 import org.bukkit.util.Vector;
 
 import java.util.Collections;
@@ -32,7 +36,7 @@ public class EntityCreator {
     private boolean visibleByDefault;
     private int ticksLived;
 
-    public EntityCreator(Location location, EntityType entityType) {
+    public EntityCreator(EntityType entityType) {
         this.entityType = entityType;
     }
 

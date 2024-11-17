@@ -13,7 +13,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import java.util.List;
 public class Menu {
 
 	private final List<Button> buttons = new ArrayList<>();
+	private final List<Props> props = new ArrayList<>();
 
 	private int size = 9 * 3;
 	private String title = "Custom Menu";
@@ -40,9 +40,15 @@ public class Menu {
 	public final List<Button> getButtons() {
 		return buttons;
 	}
+	public final List<Props> getProps() {
+		return props;
+	}
 
 	protected final void addButton(Button button) {
 		this.buttons.add(button);
+	}
+	protected final void addProp(Props prop) {
+		this.props.add(prop);
 	}
 
 	protected final void setSize(int size) {
@@ -61,6 +67,9 @@ public class Menu {
 
 		for (final Button button : this.buttons)
 			inventory.setItem(button.getSlot(), button.getItem());
+		for (final Props prop : this.props)
+			for (int slot : prop.getSlot())
+				inventory.setItem(slot, prop.getItem());
 
 		if (this.parent != null && !this.extraButtonsRegistered) {
 			this.extraButtonsRegistered = true;
@@ -80,9 +89,9 @@ public class Menu {
 				@Override
 				public void onClick(Player player) {
 					try {
-						final Menu newMenuInstance = parent.getClass().getConstructor().newInstance();
+						final Menu newMenuCreatorInstance = parent.getClass().getConstructor().newInstance();
 
-						newMenuInstance.displayTo(player);
+						newMenuCreatorInstance.displayTo(player);
 
 					} catch (final ReflectiveOperationException ex) {
 						new Message(ex.getMessage()).setLoggerType(LoggerType.SEVERE).send();

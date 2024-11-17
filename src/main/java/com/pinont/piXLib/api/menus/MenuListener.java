@@ -8,7 +8,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
 
 public class MenuListener implements Listener {
 
@@ -16,16 +15,18 @@ public class MenuListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		final Player player = (Player) event.getWhoClicked();
 		final int slot = event.getSlot();
+		final Menu menuCreator = (Menu) player.getMetadata("PiXLibMenu").getFirst().value();
+		if (menuCreator != null) {
+			for (final Button button : menuCreator.getButtons()) {
+				if (button.getSlot() == slot) {
+					button.onClick(player);
+					event.setCancelled(true);
+				}
+			}
 
-		if (player.hasMetadata("PiXLibMenu")) {
-			final Menu menu = (Menu) player.getMetadata("PiXLibMenu").getFirst().value();
-
-			if (menu != null) {
-				for (final Button button : menu.getButtons()) {
-					if (button.getSlot() == slot) {
-						button.onClick(player);
-						event.setCancelled(true);
-					}
+			for (final Props prop : menuCreator.getProps()) {
+				if (prop.getSlot().contains(slot)) {
+					event.setCancelled(true);
 				}
 			}
 		}

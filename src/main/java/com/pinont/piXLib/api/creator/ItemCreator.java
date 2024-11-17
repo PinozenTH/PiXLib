@@ -13,6 +13,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +40,10 @@ public class ItemCreator {
 
     public ItemStack create() {
         item.setType(type);
-        meta.setLore(lore);
+        if (meta == null) {meta = item.getItemMeta();}
+        if (meta != null) {
+            meta.setLore(lore);
+        }
         item.setItemMeta(meta);
         item.setDurability(durability);
         item.setAmount(amount);

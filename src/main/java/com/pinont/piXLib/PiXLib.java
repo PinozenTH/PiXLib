@@ -1,5 +1,6 @@
 package com.pinont.piXLib;
 
+import com.pinont.piXLib.api.Executer.SimpleCommand;
 import com.pinont.piXLib.api.commands.XCommand;
 import com.pinont.piXLib.api.menus.MenuListener;
 import com.pinont.piXLib.api.utils.enums.MessageType;
@@ -21,7 +22,7 @@ public class PiXLib {
     public static JavaPlugin plugin;
     public static List<Listener> listeners = new ArrayList<>();
     private static final List<Listener> listenerHiddenList = new ArrayList<>();
-    public static Map<String, XCommand> xCommandList = new HashMap<>();
+    private static final List<String> simpleCommand = new ArrayList<>();
     public static Map<String, CommandExecutor> commands = new HashMap<>();
     public static Map<String, TabCompleter> tabComplete = new HashMap<>();
     @Setter
@@ -74,14 +75,14 @@ public class PiXLib {
     }
 
     protected static void registerCommands() {
-        if (!xCommandList.isEmpty()) {
-            for (String command : xCommandList.keySet()) {
-                Objects.requireNonNull(plugin.getCommand(command)).setExecutor(commands.get(command));
-                Objects.requireNonNull(plugin.getCommand(command)).setTabCompleter(tabComplete.get(command));
-                new Message(ChatColor.AQUA + "Registered XCommand: " + command).setMessageType(MessageType.CONSOLE).send();
+        if (!simpleCommand.isEmpty()) {
+            for (String command : simpleCommand) {
+                SimpleCommand simpleCommand = new SimpleCommand();
+                plugin.getCommand(command).setExecutor(simpleCommand);
+                plugin.getCommand(command).setTabCompleter(simpleCommand);
+                new Message(ChatColor.AQUA + "Registered simple command: " + command).setMessageType(MessageType.CONSOLE).send();
             }
-            new Message(ChatColor.GREEN + "All XCommands are registered.").setMessageType(MessageType.CONSOLE).send();
-            return;
+            new Message(ChatColor.GREEN + "All simple commands are registered.").setMessageType(MessageType.CONSOLE).send();
         }
         if (!commands.isEmpty()) {
             for (String command : commands.keySet()) {
