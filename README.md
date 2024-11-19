@@ -6,26 +6,27 @@ this is a simple minecraft plugin libary for making plugins easier to make
 **Your main class should look like this:**
 
 ```java
-import com.pinont.piXLib.PiXLib;
-import com.pinont.piXLib.PiXPlugin;
+import com.pinont.experiences.Exp;
+import com.pinont.experiences.PiXLib;
+import com.pinont.experiences.PiXPlugin;
 
 public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // register event listener by
-        PiXLib.listeners.addAll(
+        Exp.listeners.addAll(
                 new EventListener(),
                 new AnotherEventListener()
         );
 
         // initialize plugin instance by
-        PiXLib.setPlugin(this);
+        Exp.setPlugin(this);
     }
 
     @Override
     public void onDisable() {
         // unregister plugin instance by
-        PiXLib.unregister(this);
+        Exp.unregister(this);
     }
 }
 ```
