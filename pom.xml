@@ -20,7 +20,7 @@
         <repository>
             <id>github</id>
             <name>ExperienceLib Maven Packages</name>
-            <url>https://maven.pkg.github.com/PinozenTH/Experiences</url>
+            <url>https://maven.pkg.github.com/PinozenTH/Experiences-Lib</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
