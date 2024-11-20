@@ -1,6 +1,6 @@
-package com.pinont.experiences.api.creator;
+package com.pinont.experiences.api.builder;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.enums.AttributeType;
 import com.pinont.experiences.api.utils.enums.PersisDataType;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class ItemCreator {
+public class ItemBuilder {
 
     private final ItemStack item;
     private ItemMeta meta;
@@ -30,7 +30,7 @@ public class ItemCreator {
     private int amount = 1;
     private Material type;
 
-    public ItemCreator(@NotNull ItemStack item) {
+    public ItemBuilder(@NotNull ItemStack item) {
         this.item = item;
         this.meta = item.getItemMeta();
         this.type = item.getType();
@@ -49,100 +49,100 @@ public class ItemCreator {
         return item;
     }
 
-    public ItemCreator setType(Material type) {
+    public ItemBuilder setType(Material type) {
         this.type = type;
         return this;
     }
 
-    public ItemCreator addChargedProjectile(ItemStack arrow) {
+    public ItemBuilder addChargedProjectile(ItemStack arrow) {
         CrossbowMeta crossbowMeta = (CrossbowMeta) meta;
         crossbowMeta.addChargedProjectile(arrow);
         meta = crossbowMeta;
         return this;
     }
 
-    public ItemCreator setDisplayName(String name) {
+    public ItemBuilder setDisplayName(String name) {
         meta.setDisplayName(Common.colorize(name));
         return this;
     }
 
-    public ItemCreator setAmount(int amount) {
+    public ItemBuilder setAmount(int amount) {
         this.amount = Math.max(amount, 1);
         return this;
     }
 
-    public ItemCreator setDurability(short durability) {
+    public ItemBuilder setDurability(short durability) {
         this.durability = durability;
         return this;
     }
 
-    public ItemCreator setUnbreakable(boolean unbreakable) {
+    public ItemBuilder setUnbreakable(boolean unbreakable) {
         meta.setUnbreakable(unbreakable);
         return this;
     }
 
-    public ItemCreator addEnchant(Enchantment enchantment, int level, boolean ignoreLevelRestriction) {
+    public ItemBuilder addEnchant(Enchantment enchantment, int level, boolean ignoreLevelRestriction) {
         meta.addEnchant(enchantment, level, ignoreLevelRestriction);
         return this;
     }
 
-    public ItemCreator setLore(String... lore) {
+    public ItemBuilder setLore(String... lore) {
         this.lore.addAll(Arrays.asList(lore));
         return this;
     }
 
-    public ItemCreator addAttribute(AttributeType attributeType, double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
+    public ItemBuilder addAttribute(AttributeType attributeType, double amount, AttributeModifier.Operation operation, EquipmentSlot slot) {
         meta.addAttributeModifier(attributeType.getAttribute(), new AttributeModifier(UUID.randomUUID(), attributeType.name(), amount, operation, slot));
         return this;
     }
 
-    public ItemCreator setCustomModelData(int data) {
+    public ItemBuilder setCustomModelData(int data) {
         meta.setCustomModelData(data);
         return this;
     }
 
-    public ItemCreator setCustomTag(String key, String value) {
-        data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.STRING, value);
+    public ItemBuilder setCustomTag(String key, String value) {
+        data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.STRING, value);
         return this;
     }
 
-    public ItemCreator setPersisDataContainer(String key, Object value, PersisDataType type) {
+    public ItemBuilder setPersisDataContainer(String key, Object value, PersisDataType type) {
         switch (type) {
             case STRING:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.STRING, value.toString());
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.STRING, value.toString());
                 break;
             case INT:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.INTEGER, Integer.parseInt(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.INTEGER, Integer.parseInt(value.toString()));
                 break;
             case DOUBLE:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.DOUBLE, Double.parseDouble(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.DOUBLE, Double.parseDouble(value.toString()));
                 break;
             case FLOAT:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.FLOAT, Float.parseFloat(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.FLOAT, Float.parseFloat(value.toString()));
                 break;
             case LONG:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.LONG, Long.parseLong(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.LONG, Long.parseLong(value.toString()));
                 break;
             case BYTE:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.BYTE, Byte.parseByte(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.BYTE, Byte.parseByte(value.toString()));
                 break;
             case SHORT:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.SHORT, Short.parseShort(value.toString()));
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.SHORT, Short.parseShort(value.toString()));
                 break;
             case BYTE_ARRAY:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.BYTE_ARRAY, value.toString().getBytes());
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.BYTE_ARRAY, value.toString().getBytes());
                 break;
             case INT_ARRAY:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.INTEGER_ARRAY, Arrays.stream(value.toString().split(",")).mapToInt(Integer::parseInt).toArray());
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.INTEGER_ARRAY, Arrays.stream(value.toString().split(",")).mapToInt(Integer::parseInt).toArray());
                 break;
             case LONG_ARRAY:
-                data.set(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.LONG_ARRAY, Arrays.stream(value.toString().split(",")).mapToLong(Long::parseLong).toArray());
+                data.set(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.LONG_ARRAY, Arrays.stream(value.toString().split(",")).mapToLong(Long::parseLong).toArray());
                 break;
         }
         return this;
     }
 
-    public ItemCreator setDurability(int durability) {
+    public ItemBuilder setDurability(int durability) {
         this.durability = durability < 0 ? 0 : (short) durability;
         return this;
     }
@@ -152,10 +152,10 @@ public class ItemCreator {
     }
 
     public String getCustomTag(String key) {
-        return data.get(new NamespacedKey(Exp.getPlugin(), key), PersistentDataType.STRING);
+        return data.get(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.STRING);
     }
 
     public Object getPersistentDataContainer(String key, PersistentDataType type) {
-        return data.get(new NamespacedKey(Exp.getPlugin(), key), type);
+        return data.get(new NamespacedKey(ExpPlugin.getPlugin(), key), type);
     }
 }

@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.menus;
+package com.pinont.experiences.api.gui;
 
 import org.bukkit.inventory.ItemStack;
 

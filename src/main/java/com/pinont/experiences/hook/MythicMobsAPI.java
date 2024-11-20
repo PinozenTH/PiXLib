@@ -1,6 +1,6 @@
 package com.pinont.experiences.hook;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
 import io.lumine.mythic.api.mobs.MythicMob;
@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 
 public class MythicMobsAPI {
 
-    private static final Plugin main = Exp.getPlugin();
+    private static final Plugin main = ExpPlugin.getPlugin();
 
     static class Lang {
         static final String HOOKED_TO_MYTHIC_MOBS = "Hooked to MythicMobs!";

@@ -1,6 +1,6 @@
-package com.pinont.experiences.api.menus;
+package com.pinont.experiences.api.gui;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.enums.MenuSize;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class Gui {
 
 	private final List<Button> buttons = new ArrayList<>();
 	private final List<Props> props = new ArrayList<>();
@@ -26,14 +26,14 @@ public class Menu {
 	private int size = 9 * 3;
 	private String title = "Custom Menu";
 
-	private final Menu parent;
+	private final Gui parent;
 	private boolean extraButtonsRegistered = false;
 
-	public Menu() {
+	public Gui() {
 		this(null);
 	}
 
-	public Menu(@Nullable Menu parent) {
+	public Gui(@Nullable Gui parent) {
 		this.parent = parent;
 	}
 
@@ -89,7 +89,7 @@ public class Menu {
 				@Override
 				public void onClick(Player player) {
 					try {
-						final Menu newMenuCreatorInstance = parent.getClass().getConstructor().newInstance();
+						final Gui newMenuCreatorInstance = parent.getClass().getConstructor().newInstance();
 
 						newMenuCreatorInstance.displayTo(player);
 
@@ -106,7 +106,7 @@ public class Menu {
 		if (player.hasMetadata("PiXLibMenu"))
 			player.closeInventory();
 
-		player.setMetadata("PiXLibMenu", new FixedMetadataValue(Exp.getPlugin(), this));
+		player.setMetadata("PiXLibMenu", new FixedMetadataValue(ExpPlugin.getPlugin(), this));
 
 		player.openInventory(inventory);
 	}

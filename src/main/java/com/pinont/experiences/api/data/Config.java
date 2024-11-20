@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.data;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,7 +12,7 @@ public class Config {
 
     private final Map<String, Boolean> debug = Map.of("debug.enabled", false,
             "debug.bypass_perm", false);
-    private static final File file = new File(Exp.getPlugin().getDataFolder().getAbsolutePath() + "/config.yml");
+    private static final File file = new File(ExpPlugin.getPlugin().getDataFolder().getAbsolutePath() + "/config.yml");
     private static final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
     private Map<String, String> stringConfig;
     private Map<String, Boolean> booleanConfig;
@@ -69,7 +69,7 @@ public class Config {
         setConfig(intConfig);
         setConfig(doubleConfig);
         setConfig(floatConfig);
-        yaml.set("version", Exp.getPluginConfigVersion());
+        yaml.set("version", ExpPlugin.getPluginConfigVersion());
         saveFile();
     }
 

@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.economy;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.NamespacedKey;
@@ -13,7 +13,7 @@ public class Balance {
 
     private Float balance;
 
-    private NamespacedKey bal = new NamespacedKey(Exp.getPlugin(), "balance");
+    private NamespacedKey bal = new NamespacedKey(ExpPlugin.getPlugin(), "balance");
 
     public Balance(Player player) {
         if (!player.getPersistentDataContainer().has(bal, PersistentDataType.FLOAT)) {

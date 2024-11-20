@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.data;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
 import lombok.SneakyThrows;
@@ -58,7 +58,7 @@ public record Mysql(String host, String database, String username, String passwo
             public void run() {
                 getConnection();
             }
-        }.runTaskTimer(Exp.getPlugin(), 0L, minuteInterval * 60 * 20);
+        }.runTaskTimer(ExpPlugin.getPlugin(), 0L, minuteInterval * 60 * 20);
     }
 
 }

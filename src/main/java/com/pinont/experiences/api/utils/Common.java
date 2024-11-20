@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.utils;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
@@ -25,8 +25,8 @@ public class Common {
         return Arrays.asList(itemOnlyMaterial()).contains(material);
     }
 
-    public static Plugin plugin = Exp.getPlugin();
-    public static JavaPlugin javaPlugin = Exp.plugin;
+    public static Plugin plugin = ExpPlugin.getPlugin();
+    public static JavaPlugin javaPlugin = ExpPlugin.plugin;
 
     public static Set<String> getCommands() {
         return plugin.getDescription().getCommands().keySet();

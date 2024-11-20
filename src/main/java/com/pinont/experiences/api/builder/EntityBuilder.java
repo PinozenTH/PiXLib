@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.creator;
+package com.pinont.experiences.api.builder;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class EntityCreator {
+public class EntityBuilder {
 
     private final EntityType entityType;
     private Entity passenger;
@@ -31,91 +31,91 @@ public class EntityCreator {
     private boolean visibleByDefault;
     private int ticksLived;
 
-    public EntityCreator(EntityType entityType) {
+    public EntityBuilder(EntityType entityType) {
         this.entityType = entityType;
     }
 
-    public EntityCreator addPassenger(Entity passenger) {
+    public EntityBuilder addPassenger(Entity passenger) {
         this.passenger = passenger;
         return this;
     }
 
-    public EntityCreator addScoreboardTag(String... ScoreboardTag) {
+    public EntityBuilder addScoreboardTag(String... ScoreboardTag) {
         Collections.addAll(this.ScoreboardTag, ScoreboardTag);
         return this;
     }
 
-    public EntityCreator setFireTicks(int ticks) {
+    public EntityBuilder setFireTicks(int ticks) {
         this.fireTicks = ticks;
         return this;
     }
 
-    public EntityCreator setGlowing(boolean glowing) {
+    public EntityBuilder setGlowing(boolean glowing) {
         this.glowing = glowing;
         return this;
     }
 
-    public EntityCreator setInvulnerable(boolean invulnerable) {
+    public EntityBuilder setInvulnerable(boolean invulnerable) {
         this.invulnerable = invulnerable;
         return this;
     }
 
-    public EntityCreator setSilent(boolean silent) {
+    public EntityBuilder setSilent(boolean silent) {
         this.silent = silent;
         return this;
     }
 
-    public EntityCreator hasGravity(boolean gravity) {
+    public EntityBuilder hasGravity(boolean gravity) {
         this.gravity = gravity;
         return this;
     }
 
-    public EntityCreator setVelocity(Vector vector) {
+    public EntityBuilder setVelocity(Vector vector) {
         this.vector = vector;
         return this;
     }
 
-    public EntityCreator setPersistent(Boolean persistent) {
+    public EntityBuilder setPersistent(Boolean persistent) {
         this.persistent = persistent;
         return this;
     }
 
-    public EntityCreator setFreezeTicks(int ticks) {
+    public EntityBuilder setFreezeTicks(int ticks) {
         this.freezeTicks = ticks;
         return this;
     }
 
-    public EntityCreator setCustomNameVisible(Boolean visible) {
+    public EntityBuilder setCustomNameVisible(Boolean visible) {
         this.customNameVisible = visible;
         return this;
     }
 
-    public EntityCreator setPortalCooldown(int ticks) {
+    public EntityBuilder setPortalCooldown(int ticks) {
         this.portalCooldown = ticks;
         return this;
     }
 
-    public EntityCreator setFallingDistance(float distance) {
+    public EntityBuilder setFallingDistance(float distance) {
         this.fallingDistance = distance;
         return this;
     }
 
-    public EntityCreator setRotation(float yaw, float pitch) {
+    public EntityBuilder setRotation(float yaw, float pitch) {
         this.rotation = new float[]{yaw, pitch};
         return this;
     }
 
-    public EntityCreator setTicksLived(int ticks) {
+    public EntityBuilder setTicksLived(int ticks) {
         this.ticksLived = ticks;
         return this;
     }
 
-    public EntityCreator setVisibleByDefault(boolean visible) {
+    public EntityBuilder setVisibleByDefault(boolean visible) {
         this.visibleByDefault = visible;
         return this;
     }
 
-    public EntityCreator setVisualFire(boolean fire) {
+    public EntityBuilder setVisualFire(boolean fire) {
         this.visualFire = fire;
         return this;
     }

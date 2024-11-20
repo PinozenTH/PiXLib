@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.data;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,13 +17,13 @@ public class Lang {
     }
 
     public static String get(String key) {
-        File file = new File(Exp.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
+        File file = new File(ExpPlugin.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         return yaml.getString(key);
     }
 
     public void create() {
-        File file = new File(Exp.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
+        File file = new File(ExpPlugin.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         for (var entry : lang.entrySet()) {
             yaml.set(entry.getKey(), entry.getValue());

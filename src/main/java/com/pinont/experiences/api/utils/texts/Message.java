@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.utils.texts;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.DebugType;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.enums.MessageType;
@@ -15,8 +15,8 @@ import static org.bukkit.Bukkit.getServer;
 
 public class Message {
 
-    private static final boolean bypass_perm = Exp.getPlugin().getConfig().getBoolean("debug.bypass-permission");
-    public Logger log = Exp.getPlugin().getLogger();
+    private static final boolean bypass_perm = ExpPlugin.getPlugin().getConfig().getBoolean("debug.bypass-permission");
+    public Logger log = ExpPlugin.getPlugin().getLogger();
     private final String message;
     private String permission = null;
     private LoggerType loggerType = null;

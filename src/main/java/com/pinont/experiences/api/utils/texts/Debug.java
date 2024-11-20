@@ -1,6 +1,6 @@
 package com.pinont.experiences.api.utils.texts;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class Debug {
 
-    private final Plugin plugin = Exp.getPlugin();
+    private final Plugin plugin = ExpPlugin.getPlugin();
     private final boolean debug = plugin.getConfig().getBoolean("debug.enabled");
     private final boolean bypass_perm = plugin.getConfig().getBoolean("debug.bypass-permission");
     private static final String prefix = "Debug: ";

@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.creator;
+package com.pinont.experiences.api.builder;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -7,12 +7,12 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
-public class EventCreator extends Event {
+public class EventBuilder_wip extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final Object eventObjective;
 
-    public EventCreator(Object eventObjective) {
+    public EventBuilder_wip(Object eventObjective) {
         this.eventObjective = eventObjective;
     }
 

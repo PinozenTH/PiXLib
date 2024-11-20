@@ -1,7 +1,10 @@
 package com.pinont.experiences.api.commands;
 
 import com.pinont.experiences.api.utils.Common;
+import com.pinont.experiences.api.utils.enums.MessageType;
+import com.pinont.experiences.api.utils.texts.Message;
 import lombok.Getter;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -73,6 +76,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
             Objects.requireNonNull(Common.javaPlugin.getCommand(simpleCommandManager.getName())).setExecutor(this);
             Objects.requireNonNull(Common.javaPlugin.getCommand(simpleCommandManager.getName())).setTabCompleter(this);
+            new Message(ChatColor.AQUA + "Registered SimpleCommand: " + simpleCommandManager.getName()).setMessageType(MessageType.CONSOLE).send();
         }
     }
 }

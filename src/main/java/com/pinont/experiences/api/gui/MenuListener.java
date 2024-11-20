@@ -1,6 +1,6 @@
-package com.pinont.experiences.api.menus;
+package com.pinont.experiences.api.gui;
 
-import com.pinont.experiences.Exp;
+import com.pinont.experiences.plugin.ExpPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +15,7 @@ public class MenuListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		final Player player = (Player) event.getWhoClicked();
 		final int slot = event.getSlot();
-		final Menu menuCreator = (Menu) player.getMetadata("PiXLibMenu").getFirst().value();
+		final Gui menuCreator = (Gui) player.getMetadata("PiXLibMenu").getFirst().value();
 		if (menuCreator != null) {
 			for (final Button button : menuCreator.getButtons()) {
 				if (button.getSlot() == slot) {
@@ -37,7 +37,7 @@ public class MenuListener implements Listener {
 		final Player player = (Player) event.getPlayer();
 
 		if (player.hasMetadata("PiXLibMenu")) {
-			player.removeMetadata("PiXLibMenu", Exp.getPlugin());
+			player.removeMetadata("PiXLibMenu", ExpPlugin.getPlugin());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class MenuListener implements Listener {
 	public void onPlayerLeave(PlayerQuitEvent event) {
 		final Player player = event.getPlayer();
 		if (player.hasMetadata("PiXLibMenu")) {
-			player.removeMetadata("PiXLibMenu", Exp.getPlugin());
+			player.removeMetadata("PiXLibMenu", ExpPlugin.getPlugin());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class MenuListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 		if (player.hasMetadata("PiXLibMenu")) {
-			player.removeMetadata("PiXLibMenu", Exp.getPlugin());
+			player.removeMetadata("PiXLibMenu", ExpPlugin.getPlugin());
 		}
 	}
 }
