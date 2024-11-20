@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static com.pinont.experiences.api.commands.SimpleCommand.NO_PERMISSION;
+
 @Getter
 public abstract class SimpleCommandManager {
     private final String name;
@@ -15,20 +17,29 @@ public abstract class SimpleCommandManager {
         this.name = name;
     }
 
-    private final Map<Integer, List<String>> args = addArgs();
+    private final Map<Integer, Map<String, String>> args = addArgs();
 
-    private Map<Integer, List<String>> addArgs() {
-        Map<Integer, List<String>> args = args();
+    private Map<Integer, Map<String, String>> addArgs() {
+        Map<Integer, Map<String, String>> args = args();
         if (args == null) return new HashMap<>();
         return args;
     }
 
     @Nullable
-    public abstract Map<Integer, List<String>> args();
+    public abstract Map<Integer, Map<String, String>> args();
 
     public abstract void execute(CommandSender sender, Command command, String[] args);
 
     public List<String> tabComplete(CommandSender sender, Command command, String[] args) {
-        return !this.args.isEmpty() ? this.args.get(args.length - 1) : null;
+        if (!this.args.isEmpty() && this.args.get(args.length - 1) != null) {
+            String permission = this.args.get(args.length - 1).get(args[args.length - 1]);
+            if (sender.hasPermission(permission)) {
+                if (permission.equalsIgnoreCase(NO_PERMISSION)) {
+                    return this.args.get(args.length - 1).keySet().stream().toList();
+                }
+                return this.args.get(args.length - 1).keySet().stream().toList();
+            }
+        }
+        return null;
     }
 }

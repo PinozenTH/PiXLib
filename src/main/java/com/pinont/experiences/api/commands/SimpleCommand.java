@@ -18,8 +18,10 @@ import java.util.*;
 @Getter
 public class SimpleCommand implements CommandExecutor, TabCompleter {
 
-    private List<SimpleCommandManager> simpleCommandManager;
-    private Map<SimpleCommandManager, CommandSenderType> simpleCommandManagerCommandSenderTypeHashMap;
+    private final List<SimpleCommandManager> simpleCommandManager = new ArrayList<>();
+    private final Map<SimpleCommandManager, CommandSenderType> simpleCommandManagerCommandSenderTypeHashMap = new HashMap<>();
+
+    public static final String NO_PERMISSION = "none";
 
     public enum CommandSenderType {
         CONSOLE,
@@ -33,7 +35,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public final boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
             if (simpleCommandManager.getName().equalsIgnoreCase(command.getName())) {
                 switch (simpleCommandManagerCommandSenderTypeHashMap.get(simpleCommandManager)) {
@@ -63,7 +65,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
             if (simpleCommandManager.getName().equalsIgnoreCase(command.getName())) {
                 return simpleCommandManager.tabComplete(commandSender, command, strings);

@@ -15,15 +15,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+import static com.pinont.experiences.api.utils.Common.javaPlugin;
+
 public abstract class ExpPlugin extends JavaPlugin {
 
     public static JavaPlugin plugin;
     public static ExpPlugin instance;
-    private List<Listener> listeners;
-    private List<Listener> listenerHiddenList;
-    private Map<String, CommandExecutor> commands;
-    private Map<String, TabCompleter> tabComplete;
-    private List<SimpleCommand> simpleCommands;
+    private final List<Listener> listeners = new ArrayList<>();
+    private final List<Listener> listenerHiddenList = new ArrayList<>();
+    private final Map<String, CommandExecutor> commands = new HashMap<>();
+    private final Map<String, TabCompleter> tabComplete = new HashMap<>();
+    private final List<SimpleCommand> simpleCommands = new ArrayList<>();
 
     private boolean hasListener = false;
     private boolean hasCommand = false;
@@ -32,7 +34,7 @@ public abstract class ExpPlugin extends JavaPlugin {
     @Getter
     public static final double pluginConfigVersion = 1.0;
     @Getter
-    public static final String apiVersion = "1.04-snapshot";
+    public static final String apiVersion = "2-snapshot";
 
     @NotNull
     public static JavaPlugin getPlugin() {
@@ -109,17 +111,15 @@ public abstract class ExpPlugin extends JavaPlugin {
 
     private void setup(@NotNull JavaPlugin plugin) {
         ExpPlugin.plugin = plugin;
-        new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " With PiXLib Version " + apiVersion).sendConsole();
+        new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " with ExperiencesAPI version " + apiVersion).sendConsole();
         listenerHiddenList.add(new MenuListener());
     }
 
     private void unregister() {
-        if (!listeners.isEmpty()) listeners.clear();
         if (!listenerHiddenList.isEmpty()) listenerHiddenList.clear();
         if (!commands.isEmpty()) commands.clear();
         if (!tabComplete.isEmpty()) tabComplete.clear();
-        if (!simpleCommands.isEmpty()) simpleCommands.clear();
-        plugin = null;
+        if (!simpleCommands.isEmpty()) simpleCommands.clear();plugin = null;
     }
 
     private void registerEvents() {
