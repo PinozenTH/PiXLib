@@ -1,15 +1,15 @@
-# ! BIG CHANGE: PixLib is now renamed to Experiences !
+# ! BIG CHANGE: PixLib is now renamed to Experience !
 
 <img src="https://imgur.com/RTuYY8g.png" />
 
-# Experiences
-This is a minecraft plugin development framework that provides a new experience of developing minecraft plugins.
+# Experience
+A Minecraft framework designed to create a new experience for developing plugins from the ground up.
 
 # How to use
 
-Please follow the steps below to use the Experiences framework in your plugin.
+Please follow the steps below to use the Experience framework in your plugin.
 
-## Step 1: Add the Experiences dependency
+## Step 1: Add the Experience dependency
 
 ```xml
 <!-- rest of the code ... <dependencies> -->
@@ -24,7 +24,7 @@ Please follow the steps below to use the Experiences framework in your plugin.
 <!-- rest of the code ... </dependencies> -->
 ```
 
-## Step 2: Change your plugin MainClass to extends `ExpPlugin`
+## Step 2: extends ExpPlugin to your MainClass
 
 ```java
 import com.pinont.experiences.plugin.ExpPlugin;
