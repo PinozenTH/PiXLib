@@ -1,6 +1,6 @@
 # ! BIG CHANGE: PixLib is now renamed to Experiences !
 
-![](https://imgur.com/a/Tl61Iuk)
+<img src="https://imgur.com/BGRCoX6.jpg" />
 
 # Experiences
 This is a minecraft plugin development framework that provides a new experience of developing minecraft plugins.
