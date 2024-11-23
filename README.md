@@ -10,6 +10,8 @@ Experience Library is developing under [spigot-api](https://hub.spigotmc.org/jav
 
 * [X] 1.21.1
 
+Feel free to use this [Template](https://github.com/PinozenTH/PluginTemplate) for your plugin.
+
 _**Note: I don't have plan to down grade this library to any spigot-api version under 1.21.1 for now.**_
 
 > ⚠️ Caution this library is has develop just for pinont's plugin, Becareful of using this library on your own,<br>You may Experiences some bugs or problems<br>Due to my lack of Development Skills and Testing.
