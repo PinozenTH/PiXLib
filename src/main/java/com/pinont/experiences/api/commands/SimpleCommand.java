@@ -21,8 +21,6 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
     private final List<SimpleCommandManager> simpleCommandManager = new ArrayList<>();
     private final Map<SimpleCommandManager, CommandSenderType> simpleCommandManagerCommandSenderTypeHashMap = new HashMap<>();
 
-    public static final String NO_PERMISSION = "none";
-
     public enum CommandSenderType {
         CONSOLE,
         PLAYER,
@@ -36,8 +34,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public final boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if (Common.javaPlugin.getCommand(command.getName()) == null) return false;
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
-            if (simpleCommandManager.getName().equalsIgnoreCase(command.getName())) {
+            if (simpleCommandManager.getName().equalsIgnoreCase(command.getName()) && commandSender.hasPermission(Objects.requireNonNull(command.getPermission()))) {
                 switch (simpleCommandManagerCommandSenderTypeHashMap.get(simpleCommandManager)) {
                     case CONSOLE:
                         if (!(commandSender instanceof Player)) {
@@ -66,8 +65,9 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
     @Nullable
     @Override
     public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        if (Common.javaPlugin.getCommand(command.getName()) == null) return null;
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
-            if (simpleCommandManager.getName().equalsIgnoreCase(command.getName())) {
+            if (simpleCommandManager.getName().equalsIgnoreCase(command.getName()) && commandSender.hasPermission(Objects.requireNonNull(command.getPermission()))) {
                 return simpleCommandManager.tabComplete(commandSender, command, strings);
             }
         }

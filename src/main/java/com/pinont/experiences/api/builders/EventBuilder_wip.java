@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.builder;
+package com.pinont.experiences.api.builders;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;

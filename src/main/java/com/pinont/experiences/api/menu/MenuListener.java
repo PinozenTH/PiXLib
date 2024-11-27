@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.gui;
+package com.pinont.experiences.api.menu;
 
 import com.pinont.experiences.plugin.ExpPlugin;
 import org.bukkit.entity.Player;
@@ -15,7 +15,10 @@ public class MenuListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		final Player player = (Player) event.getWhoClicked();
 		final int slot = event.getSlot();
-		final Gui menuCreator = (Gui) player.getMetadata("PiXLibMenu").getFirst().value();
+		if (!player.hasMetadata("PiXLibMenu")) {
+			return;
+		}
+		final Menu menuCreator = (Menu) player.getMetadata("PiXLibMenu").getFirst().value();
 		if (menuCreator != null) {
 			for (final Button button : menuCreator.getButtons()) {
 				if (button.getSlot() == slot) {

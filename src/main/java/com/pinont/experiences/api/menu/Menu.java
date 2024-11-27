@@ -1,24 +1,18 @@
-package com.pinont.experiences.api.gui;
+package com.pinont.experiences.api.menu;
 
 import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.Common;
-import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.enums.MenuSize;
-import com.pinont.experiences.api.utils.texts.Message;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gui {
+public class Menu {
 
 	private final List<Button> buttons = new ArrayList<>();
 	private final List<Props> props = new ArrayList<>();
@@ -26,14 +20,13 @@ public class Gui {
 	private int size = 9 * 3;
 	private String title = "Custom Menu";
 
-	private final Gui parent;
-	private boolean extraButtonsRegistered = false;
+	private final Menu parent;
 
-	public Gui() {
+	public Menu() {
 		this(null);
 	}
 
-	public Gui(@Nullable Gui parent) {
+	public Menu(@Nullable Menu parent) {
 		this.parent = parent;
 	}
 
@@ -71,43 +64,21 @@ public class Gui {
 			for (int slot : prop.getSlot())
 				inventory.setItem(slot, prop.getItem());
 
-		if (this.parent != null && !this.extraButtonsRegistered) {
-			this.extraButtonsRegistered = true;
-
-			final Button returnBackButton = new Button(this.size - 1) {
-				@Override
-				public ItemStack getItem() {
-					final ItemStack item = new ItemStack(Material.OAK_DOOR);
-					final ItemMeta meta = item.getItemMeta();
-                    assert meta != null;
-                    meta.setDisplayName(ChatColor.WHITE + "Return Back");
-					item.setItemMeta(meta);
-
-					return item;
-				}
-
-				@Override
-				public void onClick(Player player) {
-					try {
-						final Gui newMenuCreatorInstance = parent.getClass().getConstructor().newInstance();
-
-						newMenuCreatorInstance.displayTo(player);
-
-					} catch (final ReflectiveOperationException ex) {
-						new Message(ex.getMessage()).setLoggerType(LoggerType.SEVERE).send();
-					}
-				}
-			};
-
-			this.buttons.add(returnBackButton);
-			inventory.setItem(returnBackButton.getSlot(), returnBackButton.getItem());
-		}
-
 		if (player.hasMetadata("PiXLibMenu"))
 			player.closeInventory();
 
 		player.setMetadata("PiXLibMenu", new FixedMetadataValue(ExpPlugin.getPlugin(), this));
 
 		player.openInventory(inventory);
+	}
+
+	public final void displayNew(Player player, Menu menu) {
+		final Inventory inventory = player.getOpenInventory().getTopInventory();
+		inventory.clear();
+		for (final Button button : menu.buttons)
+			inventory.setItem(button.getSlot(), button.getItem());
+		for (final Props prop : menu.props)
+			for (int slot : prop.getSlot())
+				inventory.setItem(slot, prop.getItem());
 	}
 }

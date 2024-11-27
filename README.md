@@ -119,20 +119,18 @@ public class MainClass extends ExpPlugin {
 
 > 🍵 Note: I'm not a profressional code developer, so feel free to **[PR](https://github.com/PinozenTH/Experiences-Lib/pulls)** an enchantment to my code if you think it's better to be.
 
-# Features (WIP: I guess this will be finished on late 2025)
-
-* [ ] Automatic command registration.
-* [ ] Automatic event listener registration.
-* [ ] Automatic configuration file generation.
-* [ ] Automatic language file generation.
-* [ ] Automatic database connection.
-* [ ] Automatic plugin update checker.
-* [ ] Automatic plugin metrics.
-* [X] Simple method to create an Item using `ItemBuilder`.
-* [X] Simple method to create an Entity using `EntityBuilder`. *(Without summoning the entity)* _***(Experimental)***_
-* [X] Create a GUI using `Gui`.
-* [ ] Rework Economy System.
-* [X] Rework Scoreboard System. _***(Experimental)***_
-* [ ] Rework Messaging Method.
-* [ ] Rework Configuration Method.
-* [X] New way to select an area. _***(Experimental)***_
+* [X] Automatic command registration
+* [X] Automatic event listener registration
+* [ ] Automatic configuration file generation
+* [ ] Automatic language file generation
+* [ ] Automatic database connection
+* [ ] Automatic plugin update checker
+* [ ] Automatic plugin metrics
+* [X] Simple method to create an Item using `ItemBuilder`
+* [X] Simple method to create an Entity using `EntityBuilder` *(Without summoning the entity)* _*Experimental*_
+* [X] Create a GUI using `Gui`
+* [ ] Rework Economy System
+* [X] Rework Scoreboard System _*Experimental*_
+* [X] Rework Messaging Method
+* [ ] Rework Configuration Method
+* [X] New way to select an area _*Experimental*_

@@ -1,35 +1,21 @@
 package com.pinont.experiences.plugin;
 
-import com.pinont.experiences.api.commands.SimpleCommand;
-import com.pinont.experiences.api.gui.MenuListener;
-import com.pinont.experiences.api.utils.enums.MessageType;
+import com.pinont.experiences.api.interactable.InteractionListener;
+import com.pinont.experiences.api.menu.MenuListener;
+import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.texts.Message;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.TabCompleter;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static com.pinont.experiences.api.utils.Common.javaPlugin;
-
 public abstract class ExpPlugin extends JavaPlugin {
 
     public static JavaPlugin plugin;
     public static ExpPlugin instance;
-    private final List<Listener> listeners = new ArrayList<>();
-    private final List<Listener> listenerHiddenList = new ArrayList<>();
-    private final Map<String, CommandExecutor> commands = new HashMap<>();
-    private final Map<String, TabCompleter> tabComplete = new HashMap<>();
-    private final List<SimpleCommand> simpleCommands = new ArrayList<>();
-
-    private boolean hasListener = false;
-    private boolean hasCommand = false;
-    private boolean hasSimpleCommand = false;
 
     @Getter
     public static final double pluginConfigVersion = 1.0;
@@ -63,97 +49,32 @@ public abstract class ExpPlugin extends JavaPlugin {
         return instance;
     }
 
-    public void addListener(Listener listener) {
-        listeners.add(listener);
-        hasListener = true;
-    }
-
-    public void addCommand(String command, CommandExecutor commandExecutor) {
-        commands.put(command, commandExecutor);
-        hasCommand = true;
-    }
-
-    public void addCommand(SimpleCommand simpleCommand) {
-        simpleCommands.add(simpleCommand);
-        hasSimpleCommand = true;
-    }
-
-    public void addTabComplete(String command, TabCompleter tabCompleter) {
-        tabComplete.put(command, tabCompleter);
-    }
-
     @Override
     public final void onEnable() {
         plugin = this;
         setup(this);
         this.onPluginStart();
 
-        if (hasListener) {
-            registerEvents();
-        }
-        if (hasCommand) {
-            registerCommands();
-        }
-        if (hasSimpleCommand) {
-            for (SimpleCommand simpleCommand : simpleCommands) {
-                simpleCommand.register();
-            }
-            new Message(ChatColor.GREEN + "All simple commands are registered.").setMessageType(MessageType.CONSOLE).send();
-            if (!simpleCommands.isEmpty()) simpleCommands.clear();
+        // ExperiencesListener
+        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractionListener(), this);
+
+        try {
+            AutoRegisterScanner.scanAndRegister();
+
+        } catch (final Throwable t) {
+            Common.sneaky(t);
         }
     }
 
     @Override
     public final void onDisable() {
         this.onPluginStop();
-        unregister();
     }
 
     private void setup(@NotNull JavaPlugin plugin) {
         ExpPlugin.plugin = plugin;
         new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " with ExperiencesAPI version " + apiVersion).sendConsole();
-        listenerHiddenList.add(new MenuListener());
-    }
-
-    private void unregister() {
-        if (!listenerHiddenList.isEmpty()) listenerHiddenList.clear();
-        if (!commands.isEmpty()) commands.clear();
-        if (!tabComplete.isEmpty()) tabComplete.clear();
-        if (!simpleCommands.isEmpty()) simpleCommands.clear();plugin = null;
-    }
-
-    private void registerEvents() {
-        if (listeners.isEmpty()) return;
-        listeners.addAll(listenerHiddenList);
-        for (Listener l : listeners) {
-            plugin.getServer().getPluginManager().registerEvents(l, plugin);
-            if (!listenerHiddenList.isEmpty() && listenerHiddenList.contains(l)) {
-                continue;
-            }
-            new Message(ChatColor.AQUA + "Registered listener: " + l.getClass().getSimpleName()).setMessageType(MessageType.CONSOLE).send();
-        }
-        new Message(ChatColor.GREEN + "All listeners are registered.").setMessageType(MessageType.CONSOLE).send();
-        if (!listenerHiddenList.isEmpty()) listenerHiddenList.clear();
-        listeners.clear();
-    }
-
-    private void registerCommands() {
-        if (!commands.isEmpty()) {
-            for (String command : commands.keySet()) {
-                Objects.requireNonNull(plugin.getCommand(command)).setExecutor(commands.get(command));
-                new Message(ChatColor.AQUA + "Registered command: " + command).setMessageType(MessageType.CONSOLE).send();
-            }
-            new Message(ChatColor.GREEN + "All commands are registered.").setMessageType(MessageType.CONSOLE).send();
-            commands.clear();
-        }
-        if (!tabComplete.isEmpty()) {
-            for (String command : tabComplete.keySet()) {
-                Objects.requireNonNull(plugin.getCommand(command)).setTabCompleter(tabComplete.get(command));
-                new Message(ChatColor.AQUA + "Registered tab completer: " + command).setMessageType(MessageType.CONSOLE).send();
-            }
-            new Message(ChatColor.GREEN + "All tab completes are registered.").setMessageType(MessageType.CONSOLE).send();
-            tabComplete.clear();
-        }
     }
 }
 

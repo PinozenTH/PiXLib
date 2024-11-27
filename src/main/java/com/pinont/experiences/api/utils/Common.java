@@ -1,6 +1,9 @@
 package com.pinont.experiences.api.utils;
 
+import com.pinont.experiences.api.utils.enums.LoggerType;
+import com.pinont.experiences.api.utils.texts.Message;
 import com.pinont.experiences.plugin.ExpPlugin;
+import lombok.SneakyThrows;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
@@ -30,5 +33,22 @@ public class Common {
 
     public static Set<String> getCommands() {
         return plugin.getDescription().getCommands().keySet();
+    }
+
+    public static void checkBoolean(final boolean expression, final String falseMessage, final Object... replacements) {
+        if (!expression) {
+            String message = falseMessage;
+
+            try {
+                message = String.format(falseMessage, replacements);
+
+            } catch (final Throwable t) {
+                new Message(t.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+            }
+        }
+    }
+
+    public static void sneaky(Throwable t) {
+        throw new RuntimeException(t);
     }
 }

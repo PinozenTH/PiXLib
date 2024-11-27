@@ -1,4 +1,4 @@
-package com.pinont.experiences.api.builder;
+package com.pinont.experiences.api.builders;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -13,7 +13,7 @@ import java.util.Objects;
 public class EntityBuilder {
 
     private final EntityType entityType;
-    private Entity passenger;
+    private Entity passenger = null;
     private List<String> ScoreboardTag;
     private int fireTicks;
     private boolean glowing;
@@ -25,8 +25,8 @@ public class EntityBuilder {
     private boolean customNameVisible;
     private int portalCooldown;
     private float fallingDistance;
-    private float[] rotation;
-    private Vector vector;
+    private float[] rotation = null;
+    private Vector vector = null;
     private boolean visualFire;
     private boolean visibleByDefault;
     private int ticksLived;
@@ -39,6 +39,7 @@ public class EntityBuilder {
         this.passenger = passenger;
         return this;
     }
+
 
     public EntityBuilder addScoreboardTag(String... ScoreboardTag) {
         Collections.addAll(this.ScoreboardTag, ScoreboardTag);
@@ -122,27 +123,29 @@ public class EntityBuilder {
 
     public Entity spawn(Location location) {
         Entity entity = Objects.requireNonNull(location.getWorld()).spawnEntity(location, entityType);
+
         if (passenger != null) entity.addPassenger(passenger);
         if (ScoreboardTag != null) {
             for (String tag : ScoreboardTag) {
                 entity.addScoreboardTag(tag);
             }
         }
-        if (fireTicks != 0) entity.setFireTicks(fireTicks);
-        if (glowing) entity.setGlowing(true);
-        if (invulnerable) entity.setInvulnerable(true);
-        if (silent) entity.setSilent(true);
-        if (!gravity) entity.setGravity(false);
+        if (entity.getFireTicks() != fireTicks) entity.setFireTicks(fireTicks);
+        if (entity.isGlowing() != glowing) entity.setGlowing(glowing);
+        if (entity.isInvulnerable() != invulnerable) entity.setInvulnerable(invulnerable);
+        if (entity.isSilent() != silent) entity.setSilent(silent);
+        if (entity.hasGravity() != gravity) entity.setGravity(gravity);
         if (vector != null) entity.setVelocity(vector);
-        if (persistent) entity.setPersistent(true);
-        if (freezeTicks != 0) entity.setFreezeTicks(freezeTicks);
-        if (customNameVisible) entity.setCustomNameVisible(true);
-        if (portalCooldown != 0) entity.setPortalCooldown(portalCooldown);
-        if (fallingDistance != 0) entity.setFallDistance(fallingDistance);
+        if (entity.isPersistent() != persistent) entity.setPersistent(persistent);
+        if (entity.getFreezeTicks() != freezeTicks) entity.setFreezeTicks(freezeTicks);
+        if (entity.isCustomNameVisible() != customNameVisible) entity.setCustomNameVisible(customNameVisible);
+        if (entity.getPortalCooldown() != portalCooldown) entity.setPortalCooldown(portalCooldown);
+        if (entity.getFallDistance() != fallingDistance) entity.setFallDistance(fallingDistance);
         if (rotation != null) entity.setRotation(rotation[0], rotation[1]);
-        if (ticksLived != 0) entity.setTicksLived(ticksLived);
-        if (!visibleByDefault) entity.setVisibleByDefault(false);
-        if (!visualFire) entity.setVisualFire(false);
+        if (entity.getTicksLived() != ticksLived) entity.setTicksLived(ticksLived);
+        if (entity.isVisibleByDefault() != visibleByDefault) entity.setVisibleByDefault(visibleByDefault);
+        if (entity.isVisualFire() != visualFire) entity.setVisualFire(visualFire);
+
         return entity;
     }
 

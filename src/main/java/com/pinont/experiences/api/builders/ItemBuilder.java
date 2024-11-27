@@ -1,5 +1,6 @@
-package com.pinont.experiences.api.builder;
+package com.pinont.experiences.api.builders;
 
+import com.pinont.experiences.api.interactable.Interaction;
 import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.enums.AttributeType;
@@ -29,6 +30,9 @@ public class ItemBuilder {
     private final ArrayList<String> lore = new ArrayList<>();
     private int amount = 1;
     private Material type;
+    @Getter
+    private List<Interaction> interactions = new ArrayList<>();
+    private final String interactable = "interactable";
 
     public ItemBuilder(@NotNull ItemStack item) {
         this.item = item;
@@ -47,6 +51,29 @@ public class ItemBuilder {
         item.setDurability(durability);
         item.setAmount(amount);
         return item;
+    }
+
+    public Boolean hasTag(String tag) {
+        return Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().has(new NamespacedKey(ExpPlugin.getPlugin(), tag), PersistentDataType.STRING);
+    }
+
+    public Boolean isInteractable() {
+        return hasTag(interactable);
+    }
+
+    public String getKey(String key) {
+        return data.get(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.STRING);
+    }
+
+    public ItemBuilder setItemMeta(ItemMeta meta) {
+        this.meta = meta;
+        return this;
+    }
+
+    public ItemBuilder addInteraction(Interaction interaction) {
+        this.interactions.add(interaction);
+        setCustomTag(interactable);
+        return this;
     }
 
     public ItemBuilder setType(Material type) {
@@ -98,6 +125,11 @@ public class ItemBuilder {
 
     public ItemBuilder setCustomModelData(int data) {
         meta.setCustomModelData(data);
+        return this;
+    }
+
+    public ItemBuilder setCustomTag(String tag) {
+        data.set(new NamespacedKey(ExpPlugin.getPlugin(), tag), PersistentDataType.STRING, tag);
         return this;
     }
 
