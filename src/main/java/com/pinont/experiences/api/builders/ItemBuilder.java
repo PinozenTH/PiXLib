@@ -1,10 +1,9 @@
 package com.pinont.experiences.api.builders;
 
-import com.pinont.experiences.api.interactable.Interaction;
-import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.enums.AttributeType;
 import com.pinont.experiences.api.utils.enums.PersisDataType;
+import com.pinont.experiences.plugin.ExpPlugin;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -18,7 +17,10 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.UUID;
 
 public class ItemBuilder {
 
@@ -30,9 +32,6 @@ public class ItemBuilder {
     private final ArrayList<String> lore = new ArrayList<>();
     private int amount = 1;
     private Material type;
-    @Getter
-    private List<Interaction> interactions = new ArrayList<>();
-    private final String interactable = "interactable";
 
     public ItemBuilder(@NotNull ItemStack item) {
         this.item = item;
@@ -57,22 +56,12 @@ public class ItemBuilder {
         return Objects.requireNonNull(item.getItemMeta()).getPersistentDataContainer().has(new NamespacedKey(ExpPlugin.getPlugin(), tag), PersistentDataType.STRING);
     }
 
-    public Boolean isInteractable() {
-        return hasTag(interactable);
-    }
-
     public String getKey(String key) {
         return data.get(new NamespacedKey(ExpPlugin.getPlugin(), key), PersistentDataType.STRING);
     }
 
     public ItemBuilder setItemMeta(ItemMeta meta) {
         this.meta = meta;
-        return this;
-    }
-
-    public ItemBuilder addInteraction(Interaction interaction) {
-        this.interactions.add(interaction);
-        setCustomTag(interactable);
         return this;
     }
 

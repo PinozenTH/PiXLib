@@ -1,8 +1,10 @@
 package com.pinont.experiences.api.data;
 
+import com.pinont.experiences.api.utils.ExpException;
 import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -22,6 +24,7 @@ public class Lang {
         return yaml.getString(key);
     }
 
+    @SneakyThrows
     public void create() {
         File file = new File(ExpPlugin.getPlugin().getDataFolder().getAbsolutePath() + "/lang.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
@@ -31,7 +34,7 @@ public class Lang {
         try {
             yaml.save(file);
         } catch (Exception e) {
-            new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+            throw new ExpException(e.getMessage());
         }
     }
 

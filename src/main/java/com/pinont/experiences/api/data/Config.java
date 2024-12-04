@@ -1,8 +1,8 @@
 package com.pinont.experiences.api.data;
 
+import com.pinont.experiences.api.utils.ExpException;
 import com.pinont.experiences.plugin.ExpPlugin;
-import com.pinont.experiences.api.utils.enums.LoggerType;
-import com.pinont.experiences.api.utils.texts.Message;
+import lombok.SneakyThrows;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -20,19 +20,20 @@ public class Config {
     private Map<String, Double> doubleConfig;
     private Map<String, Float> floatConfig;
 
+    @SneakyThrows
     static void saveFile() {
         if (!file.exists()) {
             try {
                 file.createNewFile();
                 yaml.save(Config.file);
             } catch (Exception e) {
-                new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+                throw new ExpException(e.getMessage());
             }
         } else {
             try {
                 yaml.save(Config.file);
             } catch (Exception e) {
-                new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+                throw new ExpException(e.getMessage());
             }
         }
     }

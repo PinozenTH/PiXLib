@@ -78,7 +78,7 @@ public class SimpleCommand implements CommandExecutor, TabCompleter {
         for (SimpleCommandManager simpleCommandManager : this.simpleCommandManager) {
             Objects.requireNonNull(Common.javaPlugin.getCommand(simpleCommandManager.getName())).setExecutor(this);
             Objects.requireNonNull(Common.javaPlugin.getCommand(simpleCommandManager.getName())).setTabCompleter(this);
-            new Message(ChatColor.AQUA + "Registered SimpleCommand: " + simpleCommandManager.getName()).setMessageType(MessageType.CONSOLE).send();
+             new Message().sendConsole(ChatColor.AQUA + "Registered SimpleCommand: " + simpleCommandManager.getName());
         }
     }
 }

@@ -10,7 +10,7 @@ Experience Library is developing under [spigot-api](https://hub.spigotmc.org/jav
 
 * [X] 1.21.1
 
-Feel free to use this [PLugin Template](https://github.com/PinozenTH/PluginTemplate) as your head start.
+Feel free to use this [Plugin Template](https://github.com/PinozenTH/PluginTemplate) as your head start.
 
 _**Note: I don't have plan to down grade this library to any spigot-api version under 1.21.1 for now.**_
 

@@ -40,7 +40,6 @@ public class EntityBuilder {
         return this;
     }
 
-
     public EntityBuilder addScoreboardTag(String... ScoreboardTag) {
         Collections.addAll(this.ScoreboardTag, ScoreboardTag);
         return this;

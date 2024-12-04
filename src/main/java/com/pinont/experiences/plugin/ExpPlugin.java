@@ -1,6 +1,5 @@
 package com.pinont.experiences.plugin;
 
-import com.pinont.experiences.api.interactable.InteractionListener;
 import com.pinont.experiences.api.menu.MenuListener;
 import com.pinont.experiences.api.utils.Common;
 import com.pinont.experiences.api.utils.texts.Message;
@@ -10,7 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Objects;
 
 public abstract class ExpPlugin extends JavaPlugin {
 
@@ -20,7 +19,7 @@ public abstract class ExpPlugin extends JavaPlugin {
     @Getter
     public static final double pluginConfigVersion = 1.0;
     @Getter
-    public static final String apiVersion = "2-snapshot";
+    public static final String apiVersion = "2.03-snapshot";
 
     @NotNull
     public static JavaPlugin getPlugin() {
@@ -55,9 +54,8 @@ public abstract class ExpPlugin extends JavaPlugin {
         setup(this);
         this.onPluginStart();
 
-        // ExperiencesListener
-        Bukkit.getPluginManager().registerEvents(new MenuListener(), this);
-        Bukkit.getPluginManager().registerEvents(new InteractionListener(), this);
+        // register my Listener
+        getServer().getPluginManager().registerEvents(new MenuListener(), this);
 
         try {
             AutoRegisterScanner.scanAndRegister();
@@ -74,7 +72,7 @@ public abstract class ExpPlugin extends JavaPlugin {
 
     private void setup(@NotNull JavaPlugin plugin) {
         ExpPlugin.plugin = plugin;
-        new Message(ChatColor.GREEN + "Launching " + plugin.getName() + " with ExperiencesAPI version " + apiVersion).sendConsole();
+        new Message().sendConsole(ChatColor.GREEN + "Launching " + plugin.getName() + " with ExperiencesAPI version " + apiVersion);
     }
 }
 

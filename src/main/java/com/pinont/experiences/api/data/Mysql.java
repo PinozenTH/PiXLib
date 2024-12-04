@@ -1,5 +1,6 @@
 package com.pinont.experiences.api.data;
 
+import com.pinont.experiences.api.utils.ExpException;
 import com.pinont.experiences.plugin.ExpPlugin;
 import com.pinont.experiences.api.utils.enums.LoggerType;
 import com.pinont.experiences.api.utils.texts.Message;
@@ -40,7 +41,7 @@ public record Mysql(String host, String database, String username, String passwo
         return this;
     }
 
-    public void executeStatements() {
+    public void executeStatements() throws ExpException {
         try (Connection connection = getConnection()) {
             Statement statement = connection.createStatement();
             for (var s : statements) {
@@ -48,7 +49,7 @@ public record Mysql(String host, String database, String username, String passwo
             }
             statement.close();
         } catch (Exception e) {
-            new Message(e.getMessage()).setLoggerType(LoggerType.SEVERE).send();
+            throw new ExpException(e.getMessage());
         }
     }
 
